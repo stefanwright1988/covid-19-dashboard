@@ -1,59 +1,17 @@
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
+import React from "react";
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
 } from "react-simple-maps";
-import { getCountries, getGlobalCovidInfo } from "../../api/covidFetch";
-import { Country, CovidInfo } from "../../interfaces/covidInterface";
 
 const SimpleMap = (props: any) => {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [country, setCountry] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
-  const [tableData, setTableData] = useState<CovidInfo[]>([]);
-  const [mapCountries, setMapCountries] = useState<CovidInfo[]>([]);
-  const [mapData, setMapData] = useState({
-    lat: 34.80746,
-    lng: -40.4796,
-    zoom: 3,
-  });
-  const [casesType, setcasesType] =
-    useState<"cases" | "deaths" | "recovered">("cases");
-
-  useEffect(() => {
-    const getAllCountries = async () => {
-      const response: CovidInfo[] = await getCountries();
-
-      const countryList = response.map((country: CovidInfo) => ({
-        name: country.country,
-        value: country.countryInfo.iso3,
-      }));
-
-      countryList.unshift({ name: "Worldwide", value: "worldwide" });
-    };
-    getAllCountries();
-  }, []);
-
-  useEffect(() => {
-    const getGlobalStats = async () => {
-      const response = await getGlobalCovidInfo();
-      setIsLoading(false);
-    };
-    getGlobalStats();
-  }, []);
-  if (isLoading) {
-    return <div></div>;
-  } else {
-    return (
-      <div>
-        <p>Loaded</p>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <p>Loaded SimpleMap</p>
+    </div>
+  );
   /* const [center, setCenter] = useState({ lat: 11.0168, lng: 76.9558 });
   const [zoom, setZoom] = useState(0);
   const geoUrl =

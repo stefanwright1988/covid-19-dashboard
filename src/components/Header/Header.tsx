@@ -3,7 +3,11 @@ import StyledHeader from "./Header.styled";
 
 export class Header extends Component {
   render() {
-    return <StyledHeader></StyledHeader>;
+    return (
+      <StyledHeader>
+        <h1>COVID-19 Tracker</h1>
+      </StyledHeader>
+    );
   }
 }
 
