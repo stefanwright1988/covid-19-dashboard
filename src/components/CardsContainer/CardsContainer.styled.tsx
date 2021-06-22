@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledContent = styled.main`
+const StyledCardsContainer = styled.div`
   color: #3c4858;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -8,13 +8,11 @@ const StyledContent = styled.main`
   -webkit-tap-highlight-color: transparent;
   letter-spacing: normal !important;
   -webkit-font-smoothing: antialiased;
-  padding: 30px 15px;
-  margin-top: 70px;
-  min-height: calc(100vh - 123px);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 30px;
-  padding-right: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  width: unset;
+  margin: 0 -15px !important;
 `;
 
-export default StyledContent;
+export default StyledCardsContainer;

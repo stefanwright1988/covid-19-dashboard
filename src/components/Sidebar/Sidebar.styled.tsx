@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "../../vars";
 
 const SidebarContainer = styled.div`
-  display: none;
+  /* display: none;
   flex-direction: column;
   height: 100vh;
   min-width: 270px;
@@ -12,7 +12,32 @@ const SidebarContainer = styled.div`
   @media ${device.laptop} {
     grid-area: sidebar;
     display: flex;
-  }
+  } */
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300;
+  line-height: 1.5em;
+  -webkit-tap-highlight-color: transparent;
+  letter-spacing: normal !important;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  background-color: #121;
+  flex: 1 0 auto;
+  display: flex;
+  outline: 0;
+  overflow-y: auto;
+  flex-direction: column;
+  right: auto;
+  top: 0;
+  left: 0;
+  border: none;
+  bottom: 0;
+  z-index: 1;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42),
+    0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  width: 260px;
+  height: 100%;
+  position: fixed;
 `;
 
 const SidebarMenu = styled.ul`
