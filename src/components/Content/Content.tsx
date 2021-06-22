@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCountries, getGlobalCovidInfo } from "../../api/covidFetch";
 import { orderTableDataBy } from "../../helpers/orderCovidData";
 import { Country, CovidInfo } from "../../interfaces/covidInterface";
+import StatsCard from "../Cards/StatsCard";
 import SimpleMap from "../Map/Map";
 import { CountriesTable } from "../Tables/tables";
 import StyledContent from "./Content.styled";
@@ -54,6 +55,7 @@ const Content = () => {
   }, []);
   return (
     <StyledContent>
+      <StatsCard />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
     </StyledContent>
