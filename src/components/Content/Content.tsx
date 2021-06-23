@@ -54,7 +54,7 @@ const Content = () => {
   }, []);
   return (
     <StyledContent>
-      <CardsContainer />
+      <CardsContainer cardData={covidInfo} />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
     </StyledContent>

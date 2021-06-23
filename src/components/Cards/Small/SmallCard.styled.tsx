@@ -1,6 +1,9 @@
 import { Component } from "react";
 import styled from "styled-components";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
+import { Sick } from "@styled-icons/material-rounded/Sick";
+import { SkullCrossbones } from "@styled-icons/fa-solid/SkullCrossbones";
+import { Smile } from "@styled-icons/fa-regular/Smile";
 
 const StyledSmallCardContainer = styled.div`
   color: #3c4858;
@@ -176,17 +179,34 @@ const StyledSmallCardBottomLineContent = styled.div`
   line-height: 22px;
 `;
 
-class StyledSmallCard extends Component<{ title: string; subtitle: string }> {
+class StyledSmallCard extends Component<{
+  subtitle?: string;
+  type?: string;
+}> {
   render() {
+    let icon;
+    switch (this.props.type) {
+      case "Cases":
+        icon = <Sick />;
+        break;
+      case "Deaths":
+        icon = <SkullCrossbones />;
+        break;
+      case "Recovered":
+        icon = <Smile />;
+        break;
+      default:
+        break;
+    }
     return (
       <StyledSmallCardContainer>
         <StyledSmallCardInner>
           <StyledSmallCardTopLine>
             <StyledSmallCardIconContainer>
-              <StyledSmallCardIconSpan></StyledSmallCardIconSpan>
+              <StyledSmallCardIconSpan>{icon}</StyledSmallCardIconSpan>
             </StyledSmallCardIconContainer>
             <StyledSmallCardTopLineTitle>
-              {this.props.title}
+              {this.props.type}
             </StyledSmallCardTopLineTitle>
             <StyledSmallCardTopLineSubTitle>
               {this.props.subtitle}
