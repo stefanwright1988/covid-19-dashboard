@@ -88,7 +88,25 @@ const StyledSmallCardBottomLine = styled.div`
   margin-top: 20px;
 `;
 
-const StyledSmallCardIconContainer = styled.div`
+interface StyledSmallCardIconContainerProps {
+  type?: string;
+}
+
+const handleStyledSmallCardIconContainerBackgroundColor = (type?: string) => {
+  switch (type) {
+    case "Cases":
+      return "#FF0000,	#8B0000";
+    case "Deaths":
+      return "#FF0000,	#8B0000";
+    case "Recovered":
+      return "#008000,#006400";
+    case "Active":
+      return "#FFA500,#FF8C00";
+    default:
+      return "#03a9f3";
+  }
+};
+const StyledSmallCardIconContainer = styled.div<StyledSmallCardIconContainerProps>`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
   line-height: 1.5em;
@@ -99,7 +117,10 @@ const StyledSmallCardIconContainer = styled.div`
   -webkit-tap-highlight-color: transparent;
   letter-spacing: normal !important;
   -webkit-font-smoothing: antialiased;
-  background: linear-gradient(60deg, #ef5350, #e53935);
+  background: linear-gradient(
+    60deg,
+    ${({ type }) => handleStyledSmallCardIconContainerBackgroundColor(type)}
+  );
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(244, 67, 54, 0.4);
   float: left;
@@ -107,7 +128,6 @@ const StyledSmallCardIconContainer = styled.div`
   margin-top: -20px;
   margin-right: 15px;
   border-radius: 3px;
-  background-color: #999;
 `;
 
 const StyledSmallCardIconSpan = styled.span`
@@ -176,7 +196,14 @@ const StyledSmallCardBottomLineContent = styled.div`
   color: #999;
   display: inline-flex;
   font-size: 12px;
-  line-height: 22px;
+  line-height: 18px;
+  & > svg {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
 `;
 
 class StyledSmallCard extends Component<{
@@ -195,6 +222,9 @@ class StyledSmallCard extends Component<{
       case "Recovered":
         icon = <Smile />;
         break;
+      case "Active":
+        icon = <Sick />;
+        break;
       default:
         break;
     }
@@ -202,7 +232,7 @@ class StyledSmallCard extends Component<{
       <StyledSmallCardContainer>
         <StyledSmallCardInner>
           <StyledSmallCardTopLine>
-            <StyledSmallCardIconContainer>
+            <StyledSmallCardIconContainer type={this.props.type}>
               <StyledSmallCardIconSpan>{icon}</StyledSmallCardIconSpan>
             </StyledSmallCardIconContainer>
             <StyledSmallCardTopLineTitle>
