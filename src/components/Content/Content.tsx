@@ -5,7 +5,9 @@ import { Country, CovidInfo } from "../../interfaces/covidInterface";
 import SimpleMap from "../Map/Map";
 import { CountriesTable } from "../Tables/tables";
 import StyledContent from "./Content.styled";
-import CardsContainer from "../CardsContainer/CardsContainer";
+import SmallCardsContainer from "../Cards/Small/SmallCardsContainer";
+import LargeCardsContainer from "../Cards/Large/LargeCardsContainer";
+
 const Content = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<string>("");
@@ -52,9 +54,13 @@ const Content = () => {
     };
     getGlobalStats();
   }, []);
+  if (isLoading) {
+    return <div />;
+  }
   return (
     <StyledContent>
-      <CardsContainer cardData={covidInfo} />
+      <SmallCardsContainer title="Worldwide stats" cardData={covidInfo} />
+      <LargeCardsContainer title="Worldwide stats" cardData={covidInfo} />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
     </StyledContent>

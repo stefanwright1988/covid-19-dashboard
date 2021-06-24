@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledCardsContainer = styled.div`
+const SmallStyledCardsContainer = styled.div`
   color: #3c4858;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -15,4 +15,4 @@ const StyledCardsContainer = styled.div`
   margin: 0 -15px !important;
 `;
 
-export default StyledCardsContainer;
+export default SmallStyledCardsContainer;

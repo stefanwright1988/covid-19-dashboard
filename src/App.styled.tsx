@@ -3,7 +3,7 @@ import { device } from "./vars";
 
 const StyledApp = styled.div`
   top: 0;
-  height: 100vh;
+  height: 100%;
   position: relative;
 `;
 
