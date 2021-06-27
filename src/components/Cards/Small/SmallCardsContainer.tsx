@@ -13,9 +13,9 @@ const SmallCardsContainer = (props: SmallCardsContainerProps) => {
     <>
       <h1>{props.title}</h1>
       <SmallStyledCardsContainer>
-        <SmallCard type="Recovered" count={props?.cardData?.recovered} />
         <SmallCard type="Deaths" count={props?.cardData?.deaths} />
         <SmallCard type="Active" count={props?.cardData?.active} />
+        <SmallCard type="Recovered" count={props?.cardData?.recovered} />
         <SmallCard type="Cases" count={props?.cardData?.cases} />
       </SmallStyledCardsContainer>
     </>

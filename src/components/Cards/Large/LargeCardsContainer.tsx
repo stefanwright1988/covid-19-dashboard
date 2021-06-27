@@ -1,11 +1,10 @@
 import React from "react";
 import LargeStyledCardsContainer from "../Large/LargeCardsContainer.styled";
 import LargeCard from "../Large/LargeCard";
-import { CovidInfo } from "../../../interfaces/covidInterface";
 
 interface LargeCardsContainerProps {
-  cardData: CovidInfo | undefined;
   title: string;
+  cardData: any;
 }
 
 const LargeCardsContainer = (props: LargeCardsContainerProps) => {
@@ -13,9 +12,9 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
     <>
       <h1>{props.title}</h1>
       <LargeStyledCardsContainer>
-        <LargeCard type="Recovered" count={props?.cardData?.recovered} />
-        <LargeCard type="Deaths" count={props?.cardData?.deaths} />
-        <LargeCard type="Active" count={props?.cardData?.active} />
+        <LargeCard type="Deaths" cardData={props.cardData["deaths"]} />
+        <LargeCard type="Recovered" cardData={props.cardData["recovered"]} />
+        <LargeCard type="Cases" cardData={props.cardData["cases"]} />
       </LargeStyledCardsContainer>
     </>
   );

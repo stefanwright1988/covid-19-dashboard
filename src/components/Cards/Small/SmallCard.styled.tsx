@@ -1,9 +1,10 @@
 import { Component } from "react";
 import styled from "styled-components";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
-import { Sick } from "@styled-icons/material-rounded/Sick";
+import { Viruses } from "@styled-icons/fa-solid";
 import { SkullCrossbones } from "@styled-icons/fa-solid/SkullCrossbones";
-import { Smile } from "@styled-icons/fa-regular/Smile";
+import { Smile } from "@styled-icons/fa-solid/Smile";
+import { HeadSideMask } from "@styled-icons/fa-solid";
 
 const StyledSmallCardContainer = styled.div`
   color: #3c4858;
@@ -214,7 +215,7 @@ class StyledSmallCard extends Component<{
     let icon;
     switch (this.props.type) {
       case "Cases":
-        icon = <Sick />;
+        icon = <Viruses />;
         break;
       case "Deaths":
         icon = <SkullCrossbones />;
@@ -223,7 +224,7 @@ class StyledSmallCard extends Component<{
         icon = <Smile />;
         break;
       case "Active":
-        icon = <Sick />;
+        icon = <HeadSideMask />;
         break;
       default:
         break;
@@ -236,7 +237,7 @@ class StyledSmallCard extends Component<{
               <StyledSmallCardIconSpan>{icon}</StyledSmallCardIconSpan>
             </StyledSmallCardIconContainer>
             <StyledSmallCardTopLineTitle>
-              {this.props.type}
+              {this.props.type} to date
             </StyledSmallCardTopLineTitle>
             <StyledSmallCardTopLineSubTitle>
               {this.props.subtitle}

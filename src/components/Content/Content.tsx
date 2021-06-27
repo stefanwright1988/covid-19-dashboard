@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getCountries, getGlobalCovidInfo } from "../../api/covidFetch";
+import {
+  getCountries,
+  getGlobalCovidInfo,
+  getGlobalCovidHistory,
+} from "../../api/covidFetch";
 import { orderTableDataBy } from "../../helpers/orderCovidData";
 import { Country, CovidInfo } from "../../interfaces/covidInterface";
 import SimpleMap from "../Map/Map";
@@ -13,6 +17,7 @@ const Content = () => {
   const [country, setCountry] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
+  const [covidHistory, setCovidHistory] = useState<[]>([]);
   const [tableData, setTableData] = useState<CovidInfo[]>([]);
   const [mapCountries, setMapCountries] = useState<CovidInfo[]>([]);
   const [mapData, setMapData] = useState({
@@ -47,6 +52,16 @@ const Content = () => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
+    const getGlobalHistory = async () => {
+      const response = await getGlobalCovidHistory(30);
+      setCovidHistory(response);
+      setIsLoading(false);
+    };
+    getGlobalHistory();
+  }, []);
+
+  useEffect(() => {
     const getGlobalStats = async () => {
       const response = await getGlobalCovidInfo();
       setCovidInfo(response);
@@ -60,7 +75,10 @@ const Content = () => {
   return (
     <StyledContent>
       <SmallCardsContainer title="Worldwide stats" cardData={covidInfo} />
-      <LargeCardsContainer title="Worldwide stats" cardData={covidInfo} />
+      <LargeCardsContainer
+        title="Worldwide stats trend"
+        cardData={covidHistory}
+      />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
     </StyledContent>

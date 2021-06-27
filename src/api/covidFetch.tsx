@@ -37,20 +37,37 @@ const getCovidInfoByCountryCode = async (countryCode: string) => {
   }
 };
 
-const getCovidHistory = async (days: number) => {
+const getGlobalCovidHistory = async (days: number) => {
   try {
     const response = await fetch(`${ALL_HISTORICAL_URL}?lastdays=${days}`);
-    const data = await response.json();
+    let data = await response.json();
+    data = transposeResponse(data);
     return data;
   } catch (err) {
     console.log(err);
     return [];
   }
 };
+function transposeResponse(data: any) {
+  var propertyNames = Object.getOwnPropertyNames(data);
+  var newData: any = {};
+  for (var i in propertyNames) {
+    newData[propertyNames[i]] = [];
+    var children = Object.entries(data[propertyNames[i]]);
+    console.log(children);
+    for (var j of children) {
+      var newObj: any = {};
+      newObj["date"] = j[0];
+      newObj["reports"] = j[1];
+      newData[propertyNames[i]].push(newObj);
+    }
+  }
+  return newData;
+}
 
 export {
   getCountries,
   getGlobalCovidInfo,
   getCovidInfoByCountryCode,
-  getCovidHistory,
+  getGlobalCovidHistory,
 };
