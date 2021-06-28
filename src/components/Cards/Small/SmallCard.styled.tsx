@@ -207,50 +207,51 @@ const StyledSmallCardBottomLineContent = styled.div`
   }
 `;
 
-class StyledSmallCard extends Component<{
+interface StyledSmallCardProps {
   subtitle?: string;
   type?: string;
-}> {
-  render() {
-    let icon;
-    switch (this.props.type) {
-      case "Cases":
-        icon = <Viruses />;
-        break;
-      case "Deaths":
-        icon = <SkullCrossbones />;
-        break;
-      case "Recovered":
-        icon = <Smile />;
-        break;
-      case "Active":
-        icon = <HeadSideMask />;
-        break;
-      default:
-        break;
-    }
-    return (
-      <StyledSmallCardContainer>
-        <StyledSmallCardInner>
-          <StyledSmallCardTopLine>
-            <StyledSmallCardIconContainer type={this.props.type}>
-              <StyledSmallCardIconSpan>{icon}</StyledSmallCardIconSpan>
-            </StyledSmallCardIconContainer>
-            <StyledSmallCardTopLineTitle>
-              {this.props.type} to date
-            </StyledSmallCardTopLineTitle>
-            <StyledSmallCardTopLineSubTitle>
-              {this.props.subtitle}
-            </StyledSmallCardTopLineSubTitle>
-          </StyledSmallCardTopLine>
-          <StyledSmallCardBottomLine>
-            <StyledSmallCardBottomLineContent>
-              <Calendar /> Last 24 Hours
-            </StyledSmallCardBottomLineContent>
-          </StyledSmallCardBottomLine>
-        </StyledSmallCardInner>
-      </StyledSmallCardContainer>
-    );
-  }
+  updated: string;
 }
+
+const StyledSmallCard = (props: StyledSmallCardProps) => {
+  let icon;
+  switch (props.type) {
+    case "Cases":
+      icon = <Viruses />;
+      break;
+    case "Deaths":
+      icon = <SkullCrossbones />;
+      break;
+    case "Recovered":
+      icon = <Smile />;
+      break;
+    case "Active":
+      icon = <HeadSideMask />;
+      break;
+    default:
+      break;
+  }
+  return (
+    <StyledSmallCardContainer>
+      <StyledSmallCardInner>
+        <StyledSmallCardTopLine>
+          <StyledSmallCardIconContainer type={props.type}>
+            <StyledSmallCardIconSpan>{icon}</StyledSmallCardIconSpan>
+          </StyledSmallCardIconContainer>
+          <StyledSmallCardTopLineTitle>
+            {props.type} to date
+          </StyledSmallCardTopLineTitle>
+          <StyledSmallCardTopLineSubTitle>
+            {props.subtitle}
+          </StyledSmallCardTopLineSubTitle>
+        </StyledSmallCardTopLine>
+        <StyledSmallCardBottomLine>
+          <StyledSmallCardBottomLineContent>
+            <Calendar /> Updated: {props.updated}
+          </StyledSmallCardBottomLineContent>
+        </StyledSmallCardBottomLine>
+      </StyledSmallCardInner>
+    </StyledSmallCardContainer>
+  );
+};
 export default StyledSmallCard;

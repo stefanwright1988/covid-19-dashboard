@@ -19,7 +19,7 @@ const Content = () => {
   const [daysToUse, setDaysToUse] = useState<number>(30);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
-  const [covidHistory, setCovidHistory] = useState<[]>([]);
+  const [globalCovidHistory, setGlobalCovidHistory] = useState<[]>([]);
   const [tableData, setTableData] = useState<CovidInfo[]>([]);
   const [mapCountries, setMapCountries] = useState<CovidInfo[]>([]);
   const [mapData, setMapData] = useState({
@@ -57,11 +57,11 @@ const Content = () => {
     setIsLoading(true);
     const getGlobalHistory = async () => {
       const response = await getGlobalCovidHistory(daysToUse);
-      setCovidHistory(response);
+      setGlobalCovidHistory(response);
       setIsLoading(false);
     };
     getGlobalHistory();
-  }, []);
+  }, [daysToUse]);
 
   useEffect(() => {
     const getGlobalStats = async () => {
@@ -71,9 +71,70 @@ const Content = () => {
     };
     getGlobalStats();
   }, []);
+  const handleSelect = (e: any) => {
+    console.log(e.target.value);
+    setDaysToUse(e.target.value);
+  };
+
   if (isLoading) {
-    return <div />;
+    return (
+      <StyledContent>
+        <svg width="51px" height="50px" viewBox="0 0 51 50">
+          <rect y="0" width="13" height="50" fill="#1fa2ff">
+            <animate
+              attributeName="height"
+              values="50;10;50"
+              begin="0s"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="y"
+              values="0;20;0"
+              begin="0s"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </rect>
+
+          <rect x="19" y="0" width="13" height="50" fill="#12d8fa">
+            <animate
+              attributeName="height"
+              values="50;10;50"
+              begin="0.2s"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="y"
+              values="0;20;0"
+              begin="0.2s"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </rect>
+
+          <rect x="38" y="0" width="13" height="50" fill="#06ffcb">
+            <animate
+              attributeName="height"
+              values="50;10;50"
+              begin="0.4s"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="y"
+              values="0;20;0"
+              begin="0.4s"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </rect>
+        </svg>
+      </StyledContent>
+    );
   }
+
   return (
     <StyledContent>
       <Dropdown action="post">
@@ -81,10 +142,19 @@ const Content = () => {
           return <Option value={value.name}>{value.name}</Option>;
         })}
       </Dropdown>
+      <Dropdown onChange={handleSelect}>
+        <Option selected value={30}>
+          30 Days
+        </Option>
+        <Option value={60}>60 Days</Option>
+        <Option value={90}>90 Days</Option>
+        <Option value={180}>180 Days</Option>
+        <Option value={365}>365 Days</Option>
+      </Dropdown>
       <SmallCardsContainer title="Worldwide stats" cardData={covidInfo} />
       <LargeCardsContainer
         title="Worldwide stats trend"
-        cardData={covidHistory}
+        cardData={globalCovidHistory}
         daysToUse={daysToUse}
       />
       <CountriesTable tableData={tableData} />

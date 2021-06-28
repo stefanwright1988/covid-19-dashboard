@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DropdownWrapper = styled.form`
+export const DropdownWrapper = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
@@ -30,9 +30,9 @@ export const StyledButton = styled.input`
 `;
 export const Dropdown = (props: any) => {
   return (
-    <DropdownWrapper action={props.action}>
+    <DropdownWrapper>
       <StyledLabel htmlFor="services">{props.formLabel}</StyledLabel>
-      <StyledSelect id="services" name="services">
+      <StyledSelect id="services" name="services" onChange={props.onChange}>
         {props.children}
       </StyledSelect>
     </DropdownWrapper>
@@ -40,5 +40,9 @@ export const Dropdown = (props: any) => {
 };
 
 export const Option = (props: any) => {
-  return <StyledOption selected={props.selected}>{props.value}</StyledOption>;
+  return (
+    <StyledOption selected={props.selected} value={props.value}>
+      {props.children}
+    </StyledOption>
+  );
 };

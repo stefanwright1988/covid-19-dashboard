@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import StyledHeader from "./Header.styled";
 
-export class Header extends Component {
-  render() {
-    return (
-      <StyledHeader>
-        <h1>COVID-19 Tracker</h1>
-      </StyledHeader>
-    );
-  }
-}
+export const Header = () => {
+  return (
+    <StyledHeader>
+      <h1>COVID-19 Tracker</h1>
+    </StyledHeader>
+  );
+};
 
 export default Header;

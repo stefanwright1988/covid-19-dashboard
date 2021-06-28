@@ -184,50 +184,49 @@ const StyledLargeCardBottomLineContent = styled.div`
   }
 `;
 
-class StyledLargeCard extends Component<{
+interface StyledLargeCardProps {
   subtitle?: string;
   type?: string;
   cardData: any;
   daysToUse: number;
-}> {
-  render() {
-    return (
-      <StyledLargeCardContainer>
-        <StyledLargeCardInner>
-          <StyledLargeCardTopLine type={this.props.type}>
-            <ResponsiveContainer>
-              <LineChart data={this.props.cardData}>
-                <XAxis dataKey="date" stroke="#fff" />
-                <YAxis
-                  tick={{ fontSize: 14, width: 250 }}
-                  type="number"
-                  domain={[this.props.cardData[0].reports, "auto"]}
-                  tickFormatter={(tick: number) => {
-                    return abbreviateNumber(tick, 2);
-                  }}
-                  stroke="#fff"
-                />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Line type="monotone" dataKey="reports" stroke="#fff" />
-              </LineChart>
-            </ResponsiveContainer>
-          </StyledLargeCardTopLine>
-          <StyledLargeCardMidLine>
-            <StyledLargeCardMidLineTitle>
-              {this.props.type}
-            </StyledLargeCardMidLineTitle>
-            <StyledLargeCardMidLineSubTitle>
-              {this.props.subtitle}
-            </StyledLargeCardMidLineSubTitle>
-          </StyledLargeCardMidLine>
-          <StyledLargeCardBottomLine>
-            <StyledLargeCardBottomLineContent>
-              <Calendar /> Last {this.props.daysToUse} days
-            </StyledLargeCardBottomLineContent>
-          </StyledLargeCardBottomLine>
-        </StyledLargeCardInner>
-      </StyledLargeCardContainer>
-    );
-  }
 }
+const StyledLargeCard = (props: StyledLargeCardProps) => {
+  return (
+    <StyledLargeCardContainer>
+      <StyledLargeCardInner>
+        <StyledLargeCardTopLine type={props.type}>
+          <ResponsiveContainer>
+            <LineChart data={props.cardData}>
+              <XAxis dataKey="date" stroke="#fff" />
+              <YAxis
+                tick={{ fontSize: 14, width: 250 }}
+                type="number"
+                domain={[props.cardData[0].reports, "auto"]}
+                tickFormatter={(tick: number) => {
+                  return abbreviateNumber(tick, 2);
+                }}
+                stroke="#fff"
+              />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Line type="monotone" dataKey="reports" stroke="#fff" />
+            </LineChart>
+          </ResponsiveContainer>
+        </StyledLargeCardTopLine>
+        <StyledLargeCardMidLine>
+          <StyledLargeCardMidLineTitle>
+            {props.type}
+          </StyledLargeCardMidLineTitle>
+          <StyledLargeCardMidLineSubTitle>
+            {props.subtitle}
+          </StyledLargeCardMidLineSubTitle>
+        </StyledLargeCardMidLine>
+        <StyledLargeCardBottomLine>
+          <StyledLargeCardBottomLineContent>
+            <Calendar /> Last {props.daysToUse} days
+          </StyledLargeCardBottomLineContent>
+        </StyledLargeCardBottomLine>
+      </StyledLargeCardInner>
+    </StyledLargeCardContainer>
+  );
+};
 export default StyledLargeCard;
