@@ -12,23 +12,32 @@ import StyledContent from "./Content.styled";
 import SmallCardsContainer from "../Cards/Small/SmallCardsContainer";
 import LargeCardsContainer from "../Cards/Large/LargeCardsContainer";
 import { Dropdown, Option } from "../Form/form";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const Content = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [country, setCountry] = useState<string>("");
-  const [daysToUse, setDaysToUse] = useState<number>(30);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
-  const [globalCovidHistory, setGlobalCovidHistory] = useState<[]>([]);
-  const [tableData, setTableData] = useState<CovidInfo[]>([]);
-  const [mapCountries, setMapCountries] = useState<CovidInfo[]>([]);
-  const [mapData, setMapData] = useState({
-    lat: 34.80746,
-    lng: -40.4796,
-    zoom: 3,
-  });
-  const [casesType, setcasesType] =
-    useState<"cases" | "deaths" | "recovered">("cases");
+  const {
+    loading,
+    updateLoading,
+    countries,
+    updateCountries,
+    country,
+    updateCountry,
+    daysToUse,
+    updateDaysToUse,
+    covidInfo,
+    updateCovidInfo,
+    globalCovidHistory,
+    updateGlobalCovidHistory,
+    tableData,
+    updateTableData,
+    mapCountries,
+    updateMapCountries,
+    mapData,
+    updateMapData,
+    casesType,
+    updateCasesType,
+  } = useContext(AppContext);
 
   useEffect(() => {
     const getAllCountries = async () => {
@@ -40,25 +49,25 @@ const Content = () => {
       }));
 
       countryList.unshift({ name: "Worldwide", value: "worldwide" });
-      setCountries(countryList);
+      updateCountries(countryList);
       const orderedTableData: CovidInfo[] = orderTableDataBy(
         response,
         "cases",
         "desc"
       );
-      setTableData(orderedTableData);
-      setMapCountries(response);
-      setCountry("worldwide");
+      updateTableData(orderedTableData);
+      updateMapCountries(response);
+      updateCountry("worldwide");
     };
     getAllCountries();
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
+    updateLoading(true);
     const getGlobalHistory = async () => {
       const response = await getGlobalCovidHistory(daysToUse);
-      setGlobalCovidHistory(response);
-      setIsLoading(false);
+      updateGlobalCovidHistory(response);
+      updateLoading(false);
     };
     getGlobalHistory();
   }, [daysToUse]);
@@ -66,17 +75,17 @@ const Content = () => {
   useEffect(() => {
     const getGlobalStats = async () => {
       const response = await getGlobalCovidInfo();
-      setCovidInfo(response);
-      setIsLoading(false);
+      updateCovidInfo(response);
+      updateLoading(false);
     };
     getGlobalStats();
   }, []);
   const handleSelect = (e: any) => {
     console.log(e.target.value);
-    setDaysToUse(e.target.value);
+    updateDaysToUse(e.target.value);
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <StyledContent>
         <svg width="51px" height="50px" viewBox="0 0 51 50">
