@@ -188,6 +188,7 @@ class StyledLargeCard extends Component<{
   subtitle?: string;
   type?: string;
   cardData: any;
+  daysToUse: number;
 }> {
   render() {
     return (
@@ -201,7 +202,7 @@ class StyledLargeCard extends Component<{
                   tick={{ fontSize: 14, width: 250 }}
                   type="number"
                   domain={[this.props.cardData[0].reports, "auto"]}
-                  tickFormatter={(tick) => {
+                  tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
                   }}
                   stroke="#fff"
@@ -221,7 +222,7 @@ class StyledLargeCard extends Component<{
           </StyledLargeCardMidLine>
           <StyledLargeCardBottomLine>
             <StyledLargeCardBottomLineContent>
-              <Calendar /> Last 24 Hours
+              <Calendar /> Last {this.props.daysToUse} days
             </StyledLargeCardBottomLineContent>
           </StyledLargeCardBottomLine>
         </StyledLargeCardInner>

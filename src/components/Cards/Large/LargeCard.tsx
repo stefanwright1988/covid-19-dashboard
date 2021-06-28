@@ -5,6 +5,7 @@ import StyledLargeCard from "./LargeCard.styled";
 interface LargeCardProps {
   type?: string;
   cardData: any;
+  daysToUse: number;
 }
 
 const LargeCard = (props: LargeCardProps) => {
@@ -15,6 +16,7 @@ const LargeCard = (props: LargeCardProps) => {
       subtitle={difference(minCardData, maxCardData).toLocaleString()}
       type={props.type}
       cardData={props.cardData}
+      daysToUse={props.daysToUse}
     />
   );
 };

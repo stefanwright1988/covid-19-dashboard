@@ -11,10 +11,12 @@ import { CountriesTable } from "../Tables/tables";
 import StyledContent from "./Content.styled";
 import SmallCardsContainer from "../Cards/Small/SmallCardsContainer";
 import LargeCardsContainer from "../Cards/Large/LargeCardsContainer";
+import { Dropdown, Option } from "../Form/form";
 
 const Content = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<string>("");
+  const [daysToUse, setDaysToUse] = useState<number>(30);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
   const [covidHistory, setCovidHistory] = useState<[]>([]);
@@ -54,7 +56,7 @@ const Content = () => {
   useEffect(() => {
     setIsLoading(true);
     const getGlobalHistory = async () => {
-      const response = await getGlobalCovidHistory(30);
+      const response = await getGlobalCovidHistory(daysToUse);
       setCovidHistory(response);
       setIsLoading(false);
     };
@@ -74,10 +76,16 @@ const Content = () => {
   }
   return (
     <StyledContent>
+      <Dropdown action="post">
+        {countries.map((value, index) => {
+          return <Option value={value.name}>{value.name}</Option>;
+        })}
+      </Dropdown>
       <SmallCardsContainer title="Worldwide stats" cardData={covidInfo} />
       <LargeCardsContainer
         title="Worldwide stats trend"
         cardData={covidHistory}
+        daysToUse={daysToUse}
       />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
