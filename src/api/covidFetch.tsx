@@ -1,3 +1,5 @@
+import { CovidHistory, CovidHistoryCase } from "../interfaces/covidInterface";
+
 const HOST_VERSION = "v3";
 const HOST_NAME = `https://disease.sh/`;
 const BASE_URL = `${HOST_NAME}${HOST_VERSION}/covid-19`;
@@ -55,11 +57,13 @@ function transposeResponse(data: any) {
     newData[propertyNames[i]] = [];
     var children = Object.entries(data[propertyNames[i]]);
     console.log(children);
-    for (var j of children) {
-      var newObj: any = {};
-      newObj["date"] = j[0];
-      newObj["reports"] = j[1];
-      newData[propertyNames[i]].push(newObj);
+    for (const j of children) {
+      if (j[0] === "cases") {
+        var newObj: CovidHistoryCase = {} as CovidHistoryCase;
+        newObj["date"] = j[0];
+        newObj["reports"] = j[1];
+        newData[propertyNames[i]].push(newObj);
+      }
     }
   }
   return newData;

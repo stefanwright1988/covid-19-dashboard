@@ -30,7 +30,23 @@ export interface CovidInfo {
   recoveredPerOneMillion: number;
   criticalPerOneMillion: number;
 }
-
+export interface CovidHistoryCase {
+  date: string;
+  reports: number;
+}
+export interface CovidHistoryDeath {
+  date: string;
+  reports: number;
+}
+export interface CovidHistoryRecovered {
+  date: string;
+  reports: number;
+}
+export interface CovidHistory {
+  cases: CovidHistoryCase;
+  deaths: CovidHistoryDeath[];
+  recovered: CovidHistoryRecovered[];
+}
 export interface Country {
   name: string;
   value: string;
