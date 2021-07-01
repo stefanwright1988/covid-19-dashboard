@@ -43,7 +43,7 @@ export interface CovidHistoryRecovered {
   reports: number;
 }
 export interface CovidHistory {
-  cases: CovidHistoryCase;
+  cases: CovidHistoryCase[];
   deaths: CovidHistoryDeath[];
   recovered: CovidHistoryRecovered[];
 }

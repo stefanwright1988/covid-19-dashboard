@@ -1,6 +1,6 @@
 import React, { createContext, useCallback } from "react";
 import { useState } from "react";
-import { Country, CovidInfo } from "../interfaces/covidInterface";
+import { Country, CovidHistory, CovidInfo } from "../interfaces/covidInterface";
 
 type IContext = {
   loading: boolean;
@@ -17,8 +17,8 @@ type IContext = {
   updateTableData: (value: CovidInfo[]) => void;
   mapCountries: CovidInfo[];
   updateMapCountries: (value: CovidInfo[]) => void;
-  globalCovidHistory: [];
-  updateGlobalCovidHistory: (value: []) => void;
+  globalCovidHistory: CovidHistory[] | undefined;
+  updateGlobalCovidHistory: (value: CovidHistory | undefined) => void;
   mapData: {};
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => void;
   casesType: "cases" | "deaths" | "recovered";
@@ -41,7 +41,7 @@ export const AppContext = createContext<IContext>({
   mapCountries: [],
   updateMapCountries: (value: CovidInfo[]) => {},
   globalCovidHistory: [],
-  updateGlobalCovidHistory: (value: []) => {},
+  updateGlobalCovidHistory: (value: CovidHistory | undefined) => {},
   mapData: {},
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
   casesType: "cases",
@@ -69,8 +69,12 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateCovidInfo = (value: CovidInfo | undefined) => {
     setCovidInfo(value);
   };
-  const [globalCovidHistory, setGlobalCovidHistory] = useState<[]>([]);
-  const updateGlobalCovidHistory = (value: []) => {
+  const [globalCovidHistory, setGlobalCovidHistory] = useState<CovidHistory>({
+    cases: [],
+    recovered: [],
+    deaths: [],
+  });
+  const updateGlobalCovidHistory = (value: CovidHistory) => {
     setGlobalCovidHistory(value);
   };
   const [tableData, setTableData] = useState<CovidInfo[]>([]);

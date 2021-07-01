@@ -52,17 +52,18 @@ const getGlobalCovidHistory = async (days: number) => {
 };
 function transposeResponse(data: any) {
   var propertyNames = Object.getOwnPropertyNames(data);
-  var newData: any = {};
+  var newData: CovidHistory = { cases: [], recovered: [], deaths: [] };
   for (var i in propertyNames) {
-    newData[propertyNames[i]] = [];
-    var children = Object.entries(data[propertyNames[i]]);
+    newData["cases"] = [];
+    const test: CovidHistoryCase = data[propertyNames[i]];
+    var children = Object.entries(test);
     console.log(children);
-    for (const j of children) {
+    for (const [j, k] of children) {
       if (j[0] === "cases") {
-        var newObj: CovidHistoryCase = {} as CovidHistoryCase;
-        newObj["date"] = j[0];
-        newObj["reports"] = j[1];
-        newData[propertyNames[i]].push(newObj);
+        var newObj: CovidHistoryCase = { date: "", reports: 0 };
+        newObj.date = j;
+        newObj.reports = k;
+        newData["cases"].push(newObj);
       }
     }
   }

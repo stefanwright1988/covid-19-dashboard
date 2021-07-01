@@ -70,10 +70,9 @@ const LargeCard = (props: LargeCardProps) => {
       </StyledContent>
     );
   }
-  let minCardData = globalCovidHistory["deaths"] ?? 0,
+  let minCardData = globalCovidHistory.cases[0].reports ?? 0,
     maxCardData =
-      globalCovidHistory["deaths"][globalCovidHistory["deaths"].length - 1]
-        .reports;
+      globalCovidHistory.cases[globalCovidHistory.cases.length - 1].reports;
   return (
     <StyledLargeCard
       subtitle={difference(minCardData, maxCardData).toLocaleString()}
