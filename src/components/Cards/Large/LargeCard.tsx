@@ -5,14 +5,14 @@ import StyledLargeCard from "./LargeCard.styled";
 import StyledContent from "../../Content/Content.styled";
 
 interface LargeCardProps {
-  type?: string;
+  type: string;
   cardData: any;
   daysToUse: number;
 }
 
 const LargeCard = (props: LargeCardProps) => {
   const { loading, globalCovidHistory } = useContext(AppContext);
-  if (!globalCovidHistory || loading) {
+  if (!globalCovidHistory.cases.length || loading) {
     return (
       <StyledContent>
         <svg width="51px" height="50px" viewBox="0 0 51 50">
@@ -77,7 +77,7 @@ const LargeCard = (props: LargeCardProps) => {
     <StyledLargeCard
       subtitle={difference(minCardData, maxCardData).toLocaleString()}
       type={props.type}
-      cardData={props.cardData}
+      cardData={globalCovidHistory.cases}
       daysToUse={props.daysToUse}
     />
   );

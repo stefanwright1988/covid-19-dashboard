@@ -17,8 +17,8 @@ type IContext = {
   updateTableData: (value: CovidInfo[]) => void;
   mapCountries: CovidInfo[];
   updateMapCountries: (value: CovidInfo[]) => void;
-  globalCovidHistory: CovidHistory[] | undefined;
-  updateGlobalCovidHistory: (value: CovidHistory | undefined) => void;
+  globalCovidHistory: CovidHistory;
+  updateGlobalCovidHistory: (value: CovidHistory) => void;
   mapData: {};
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => void;
   casesType: "cases" | "deaths" | "recovered";
@@ -40,8 +40,8 @@ export const AppContext = createContext<IContext>({
   updateTableData: (value: CovidInfo[]) => {},
   mapCountries: [],
   updateMapCountries: (value: CovidInfo[]) => {},
-  globalCovidHistory: [],
-  updateGlobalCovidHistory: (value: CovidHistory | undefined) => {},
+  globalCovidHistory: { cases: [], recovered: [], deaths: [] },
+  updateGlobalCovidHistory: (value: CovidHistory) => {},
   mapData: {},
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
   casesType: "cases",
@@ -93,8 +93,9 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateMapData = (value: { lat: number; lng: number; zoom: number }) => {
     setMapData(value);
   };
-  const [casesType, setCasesType] =
-    useState<"cases" | "deaths" | "recovered">("cases");
+  const [casesType, setCasesType] = useState<"cases" | "deaths" | "recovered">(
+    "cases"
+  );
   const updateCasesType = (value: "cases" | "deaths" | "recovered") => {
     setCasesType(value);
   };
