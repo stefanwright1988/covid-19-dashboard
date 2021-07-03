@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   getCountries,
   getGlobalCovidInfo,
   getGlobalCovidHistory,
 } from "../../api/covidFetch";
 import { orderTableDataBy } from "../../helpers/orderCovidData";
-import { Country, CovidInfo } from "../../interfaces/covidInterface";
+import { CovidInfo } from "../../interfaces/covidInterface";
 import SimpleMap from "../Map/Map";
 import { CountriesTable } from "../Tables/tables";
 import StyledContent from "./Content.styled";
@@ -18,11 +18,9 @@ import { AppContext } from "../../context/AppContext";
 
 const Content = () => {
   const {
-    loading,
     updateLoading,
     countries,
     updateCountries,
-    country,
     updateCountry,
     daysToUse,
     updateDaysToUse,
@@ -32,12 +30,7 @@ const Content = () => {
     updateGlobalCovidHistory,
     tableData,
     updateTableData,
-    mapCountries,
     updateMapCountries,
-    mapData,
-    updateMapData,
-    casesType,
-    updateCasesType,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -89,7 +82,7 @@ const Content = () => {
   return (
     <StyledContent>
       <Dropdown action="post">
-        {countries.map((value, index) => {
+        {countries.map((value) => {
           return <Option value={value.name}>{value.name}</Option>;
         })}
       </Dropdown>

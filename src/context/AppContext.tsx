@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from "react";
+import React, { createContext } from "react";
 import { useState } from "react";
 import { Country, CovidHistory, CovidInfo } from "../interfaces/covidInterface";
 
@@ -93,9 +93,8 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateMapData = (value: { lat: number; lng: number; zoom: number }) => {
     setMapData(value);
   };
-  const [casesType, setCasesType] = useState<"cases" | "deaths" | "recovered">(
-    "cases"
-  );
+  const [casesType, setCasesType] =
+    useState<"cases" | "deaths" | "recovered">("cases");
   const updateCasesType = (value: "cases" | "deaths" | "recovered") => {
     setCasesType(value);
   };

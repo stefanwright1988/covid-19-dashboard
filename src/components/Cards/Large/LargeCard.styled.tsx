@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styled from "styled-components";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
 import {
@@ -10,10 +9,12 @@ import {
   CartesianGrid,
 } from "recharts";
 import { abbreviateNumber } from "../../../helpers/number";
+import Loader from "../../Loader/Loader";
+import { AppContext } from "../../../context/AppContext";
+import { useContext } from "react";
 interface StyledLargeCardTopLineProps {
   type?: string;
 }
-
 const handleStyledLargeCardTopLineBackgroundColor = (type?: string) => {
   switch (type) {
     case "Cases":
@@ -44,7 +45,6 @@ const StyledLargeCardContainer = styled.div`
   flex-basis: 33.333333%;
   padding: 0 15px !important;
 `;
-
 const StyledLargeCardInner = styled.div`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -67,7 +67,6 @@ const StyledLargeCardInner = styled.div`
   margin-bottom: 30px;
   flex-direction: column;
 `;
-
 const StyledLargeCardTopLine = styled.div<StyledLargeCardTopLineProps>`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -93,7 +92,6 @@ const StyledLargeCardTopLine = styled.div<StyledLargeCardTopLineProps>`
   border-radius: 3px;
   height: 200px;
 `;
-
 const StyledLargeCardMidLine = styled.div`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -109,7 +107,6 @@ const StyledLargeCardMidLine = styled.div`
   position: relative;
   -webkit-box-flex: 1;
 `;
-
 const StyledLargeCardMidLineTitle = styled.p`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -141,7 +138,6 @@ const StyledLargeCardMidLineSubTitle = styled.h3`
   text-decoration: none;
   margin: 0 !important;
 `;
-
 const StyledLargeCardBottomLine = styled.div`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -163,7 +159,6 @@ const StyledLargeCardBottomLine = styled.div`
   background-color: transparent;
   border-top: 1px solid #eee;
 `;
-
 const StyledLargeCardBottomLineContent = styled.div`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -189,27 +184,33 @@ interface StyledLargeCardProps {
   type?: string;
   cardData: any;
   daysToUse: number;
+  isBlank?: boolean;
 }
 const StyledLargeCard = (props: StyledLargeCardProps) => {
+  const { loading } = useContext(AppContext);
   return (
     <StyledLargeCardContainer>
       <StyledLargeCardInner>
         <StyledLargeCardTopLine type={props.type}>
           <ResponsiveContainer>
-            <LineChart data={props.cardData}>
-              <XAxis dataKey="date" stroke="#fff" />
-              <YAxis
-                tick={{ fontSize: 14, width: 250 }}
-                type="number"
-                domain={[props.cardData[0].reports, "auto"]}
-                tickFormatter={(tick: number) => {
-                  return abbreviateNumber(tick, 2);
-                }}
-                stroke="#fff"
-              />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Line type="monotone" dataKey="reports" stroke="#fff" />
-            </LineChart>
+            {loading || props.isBlank ? (
+              <Loader />
+            ) : (
+              <LineChart data={props.cardData}>
+                <XAxis dataKey="date" stroke="#fff" />
+                <YAxis
+                  tick={{ fontSize: 14, width: 250 }}
+                  type="number"
+                  domain={[props.cardData[0].reports, "auto"]}
+                  tickFormatter={(tick: number) => {
+                    return abbreviateNumber(tick, 2);
+                  }}
+                  stroke="#fff"
+                />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey="reports" stroke="#fff" />
+              </LineChart>
+            )}
           </ResponsiveContainer>
         </StyledLargeCardTopLine>
         <StyledLargeCardMidLine>
