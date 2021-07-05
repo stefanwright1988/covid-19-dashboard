@@ -2,17 +2,14 @@ import React, { useContext } from "react";
 import { AppContext } from "../../../context/AppContext";
 import { abbreviateNumber, difference } from "../../../helpers/number";
 import StyledLargeCard from "./LargeCard.styled";
-import Loader from "../../Loader/Loader";
 import { CovidHistory } from "../../../interfaces/covidInterface";
 
 interface LargeCardProps {
   type: string;
-  cardData: any;
-  daysToUse: number;
 }
 
 const LargeCard = (props: LargeCardProps) => {
-  const { globalCovidHistory } = useContext(AppContext);
+  const { globalCovidHistory, daysToUse } = useContext(AppContext);
   if (!globalCovidHistory.cases.length) {
     return (
       <StyledLargeCard
@@ -35,7 +32,7 @@ const LargeCard = (props: LargeCardProps) => {
       subtitle={abbreviateNumber(difference(minCardData, maxCardData), 3)}
       type={props.type}
       cardData={globalCovidHistory[historyType]}
-      daysToUse={props.daysToUse}
+      daysToUse={daysToUse}
     />
   );
 };

@@ -76,7 +76,6 @@ const Content = () => {
   }, []);
 
   const handleSelect = (e: any) => {
-    console.log(e.target.value);
     updateDaysToUse(e.target.value);
   };
   return (
@@ -93,12 +92,8 @@ const Content = () => {
         <Option value={180}>180 Days</Option>
         <Option value={365}>365 Days</Option>
       </Dropdown>
-      <SmallCardsContainer title="Worldwide stats" cardData={covidInfo} />
-      <LargeCardsContainer
-        title="Worldwide stats trend"
-        cardData={globalCovidHistory}
-        daysToUse={daysToUse}
-      />
+      <SmallCardsContainer cardData={covidInfo} />
+      <LargeCardsContainer cardData={globalCovidHistory} />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
     </StyledContent>

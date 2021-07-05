@@ -1,9 +1,10 @@
 import React from "react";
+import { CovidInfo } from "../../../interfaces/covidInterface";
 import StyledSmallCard from "./SmallCard.styled";
 
 interface SmallCardProps {
   type?: string;
-  count?: number | 0;
+  count?: any;
   updated: string;
 }
 
