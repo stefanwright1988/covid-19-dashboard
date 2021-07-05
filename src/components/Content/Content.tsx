@@ -2,8 +2,8 @@
 import { useEffect } from "react";
 import {
   getCountries,
-  getGlobalCovidInfo,
-  getGlobalCovidHistory,
+  getCovidHistory,
+  getCovidInfo,
 } from "../../api/covidFetch";
 import { orderTableDataBy } from "../../helpers/orderCovidData";
 import { CovidInfo } from "../../interfaces/covidInterface";
@@ -21,10 +21,10 @@ const Content = () => {
     updateLoading,
     countries,
     updateCountries,
+    country,
     updateCountry,
     daysToUse,
     updateDaysToUse,
-    covidInfo,
     updateCovidInfo,
     globalCovidHistory,
     updateGlobalCovidHistory,
@@ -58,41 +58,45 @@ const Content = () => {
 
   useEffect(() => {
     updateLoading(true);
-    const getGlobalHistory = async () => {
-      const response = await getGlobalCovidHistory(daysToUse);
+    const getCovidHistoryByCountry = async () => {
+      const response = await getCovidHistory(country, daysToUse);
       updateGlobalCovidHistory(response);
       updateLoading(false);
     };
-    getGlobalHistory();
-  }, [daysToUse]);
+    getCovidHistoryByCountry();
+  }, [country, daysToUse]);
 
   useEffect(() => {
-    const getGlobalStats = async () => {
-      const response = await getGlobalCovidInfo();
+    const getCovidStats = async () => {
+      const response = await getCovidInfo(country);
       updateCovidInfo(response);
       updateLoading(false);
     };
-    getGlobalStats();
-  }, []);
+    getCovidStats();
+  }, [country]);
 
-  const handleSelect = (e: any) => {
+  const changeDays = (e: any) => {
     updateDaysToUse(e.target.value);
+  };
+
+  const changeCountry = (e: any) => {
+    updateCountry(e.target.value);
   };
   return (
     <StyledContent>
-      <Dropdown action="post">
+      <Dropdown onChange={changeCountry}>
         {countries.map((value) => {
           return <Option value={value.name}>{value.name}</Option>;
         })}
       </Dropdown>
-      <Dropdown onChange={handleSelect}>
+      <Dropdown onChange={changeDays}>
         <Option value={30}>30 Days</Option>
         <Option value={60}>60 Days</Option>
         <Option value={90}>90 Days</Option>
         <Option value={180}>180 Days</Option>
         <Option value={365}>365 Days</Option>
       </Dropdown>
-      <SmallCardsContainer cardData={covidInfo} />
+      <SmallCardsContainer />
       <LargeCardsContainer cardData={globalCovidHistory} />
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />

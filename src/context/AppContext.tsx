@@ -95,7 +95,7 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateMapData = (value: { lat: number; lng: number; zoom: number }) => {
     setMapData(value);
   };
-  const caseTypes = ["cases", "deaths", "recovered"];
+  const caseTypes = ["cases", "active", "deaths", "recovered"];
   const [casesType, setCasesType] = useState<"cases" | "deaths" | "recovered">(
     "cases"
   );

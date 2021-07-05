@@ -14,9 +14,11 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
     <>
       <h1>{toSentenceCase(country)} - Trend data</h1>
       <LargeStyledCardsContainer>
-        {caseTypes.map((type) => {
-          return <LargeCard type={toSentenceCase(type)} />;
-        })}
+        {caseTypes
+          .filter((type) => type !== "active")
+          .map((type) => {
+            return <LargeCard type={toSentenceCase(type)} />;
+          })}
       </LargeStyledCardsContainer>
     </>
   );

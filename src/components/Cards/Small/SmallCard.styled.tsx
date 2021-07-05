@@ -1,10 +1,10 @@
-import { Component } from "react";
 import styled from "styled-components";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
 import { Viruses } from "@styled-icons/fa-solid";
 import { SkullCrossbones } from "@styled-icons/fa-solid/SkullCrossbones";
 import { Smile } from "@styled-icons/fa-solid/Smile";
 import { HeadSideMask } from "@styled-icons/fa-solid";
+import Loader from "../../Loader/Loader";
 
 const StyledSmallCardContainer = styled.div`
   color: #3c4858;
@@ -143,7 +143,6 @@ const StyledSmallCardIconSpan = styled.span`
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
   flex-shrink: 0;
   user-select: none;
@@ -210,7 +209,8 @@ const StyledSmallCardBottomLineContent = styled.div`
 interface StyledSmallCardProps {
   subtitle?: string;
   type?: string;
-  updated: string;
+  updated?: string;
+  isBlank?: boolean;
 }
 
 const StyledSmallCard = (props: StyledSmallCardProps) => {
@@ -241,9 +241,13 @@ const StyledSmallCard = (props: StyledSmallCardProps) => {
           <StyledSmallCardTopLineTitle>
             {props.type} to date
           </StyledSmallCardTopLineTitle>
-          <StyledSmallCardTopLineSubTitle>
-            {props.subtitle}
-          </StyledSmallCardTopLineSubTitle>
+          {props.isBlank ? (
+            <Loader />
+          ) : (
+            <StyledSmallCardTopLineSubTitle>
+              {props.subtitle}
+            </StyledSmallCardTopLineSubTitle>
+          )}
         </StyledSmallCardTopLine>
         <StyledSmallCardBottomLine>
           <StyledSmallCardBottomLineContent>

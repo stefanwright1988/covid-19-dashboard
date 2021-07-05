@@ -4,7 +4,7 @@ const HOST_VERSION = "v3";
 const HOST_NAME = `https://disease.sh/`;
 const BASE_URL = `${HOST_NAME}${HOST_VERSION}/covid-19`;
 const ALL_URL = `${BASE_URL}/all`;
-const ALL_HISTORICAL_URL = `${BASE_URL}/historical/all`;
+const HISTORICAL_URL = `${BASE_URL}/historical`;
 const COUNTRIES_URL = `${BASE_URL}/countries`;
 const getCountries = async () => {
   try {
@@ -17,9 +17,12 @@ const getCountries = async () => {
   }
 };
 
-const getGlobalCovidInfo = async () => {
+const getCovidInfo = async (countryCode: string) => {
   try {
-    const response = await fetch(`${ALL_URL}`);
+    const response =
+      countryCode.toLowerCase() === "worldwide"
+        ? await fetch(`${ALL_URL}`)
+        : await fetch(`${COUNTRIES_URL}/${countryCode}`);
     const data = await response.json();
     return data;
   } catch (err) {
@@ -28,20 +31,12 @@ const getGlobalCovidInfo = async () => {
   }
 };
 
-const getCovidInfoByCountryCode = async (countryCode: string) => {
+const getCovidHistory = async (countryCode: string, days: number) => {
   try {
-    const response = await fetch(`${COUNTRIES_URL}/${countryCode}`);
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
-};
-
-const getGlobalCovidHistory = async (days: number) => {
-  try {
-    const response = await fetch(`${ALL_HISTORICAL_URL}?lastdays=${days}`);
+    const response =
+      countryCode.toLowerCase() === "worldwide"
+        ? await fetch(`${HISTORICAL_URL}/all?lastdays=${days}`)
+        : await fetch(`${HISTORICAL_URL}/${countryCode}?lastdays=${days}`);
     let data = await response.json();
     data = transposeResponse(data);
     return data;
@@ -57,7 +52,6 @@ function transposeResponse(data: any) {
     newData[i as keyof CovidHistory] = [];
     const test: CovidHistoryCase = data[i];
     var children = Object.entries(test);
-    console.log(children);
     for (const j of children) {
       var newObj: CovidHistoryCase = { date: "", reports: 0 };
       newObj.date = j[0];
@@ -68,9 +62,4 @@ function transposeResponse(data: any) {
   return newData;
 }
 
-export {
-  getCountries,
-  getGlobalCovidInfo,
-  getCovidInfoByCountryCode,
-  getGlobalCovidHistory,
-};
+export { getCountries, getCovidInfo, getCovidHistory };
