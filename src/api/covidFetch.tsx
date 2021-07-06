@@ -38,19 +38,38 @@ const getCovidHistory = async (countryCode: string, days: number) => {
         ? await fetch(`${HISTORICAL_URL}/all?lastdays=${days}`)
         : await fetch(`${HISTORICAL_URL}/${countryCode}?lastdays=${days}`);
     let data = await response.json();
-    data = transposeResponse(data);
+    data =
+      countryCode.toLowerCase() === "worldwide"
+        ? transposeWorldwideResponse(data)
+        : transposeCountryResponse(data);
     return data;
   } catch (err) {
     console.log(err);
     return [];
   }
 };
-function transposeResponse(data: any) {
+function transposeWorldwideResponse(data: any) {
   var propertyNames = Object.getOwnPropertyNames(data);
   var newData: CovidHistory = { cases: [], recovered: [], deaths: [] };
   for (var i of propertyNames) {
     newData[i as keyof CovidHistory] = [];
     const test: CovidHistoryCase = data[i];
+    var children = Object.entries(test);
+    for (const j of children) {
+      var newObj: CovidHistoryCase = { date: "", reports: 0 };
+      newObj.date = j[0];
+      newObj.reports = j[1];
+      newData[i as keyof CovidHistory].push(newObj);
+    }
+  }
+  return newData;
+}
+function transposeCountryResponse(data: any) {
+  var propertyNames = Object.getOwnPropertyNames(data);
+  var newData: CovidHistory = { cases: [], recovered: [], deaths: [] };
+  for (var i of propertyNames) {
+    newData[i as keyof CovidHistory] = [];
+    const test: CovidHistoryCase = data[i].timeline;
     var children = Object.entries(test);
     for (const j of children) {
       var newObj: CovidHistoryCase = { date: "", reports: 0 };
