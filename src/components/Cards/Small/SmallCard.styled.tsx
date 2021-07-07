@@ -5,6 +5,7 @@ import { SkullCrossbones } from "@styled-icons/fa-solid/SkullCrossbones";
 import { Smile } from "@styled-icons/fa-solid/Smile";
 import { HeadSideMask } from "@styled-icons/fa-solid";
 import Loader from "../../Loader/Loader";
+import { toSentenceCase } from "../../../helpers/strings";
 
 const StyledSmallCardContainer = styled.div`
   color: #3c4858;
@@ -215,17 +216,17 @@ interface StyledSmallCardProps {
 
 const StyledSmallCard = (props: StyledSmallCardProps) => {
   let icon;
-  switch (props.type) {
-    case "Cases":
+  switch (props.type?.toLowerCase()) {
+    case "cases":
       icon = <Viruses />;
       break;
-    case "Deaths":
+    case "deaths":
       icon = <SkullCrossbones />;
       break;
-    case "Recovered":
+    case "recovered":
       icon = <Smile />;
       break;
-    case "Active":
+    case "active":
       icon = <HeadSideMask />;
       break;
     default:
@@ -239,7 +240,7 @@ const StyledSmallCard = (props: StyledSmallCardProps) => {
             <StyledSmallCardIconSpan>{icon}</StyledSmallCardIconSpan>
           </StyledSmallCardIconContainer>
           <StyledSmallCardTopLineTitle>
-            {props.type} to date
+            {toSentenceCase(props.type || "")} to date
           </StyledSmallCardTopLineTitle>
           {props.isBlank ? (
             <Loader />

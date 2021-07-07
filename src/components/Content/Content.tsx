@@ -90,6 +90,7 @@ const Content = () => {
         })}
       </Dropdown>
       <Dropdown onChange={changeDays}>
+        <Option value={7}>7 Days</Option>
         <Option value={30}>30 Days</Option>
         <Option value={60}>60 Days</Option>
         <Option value={90}>90 Days</Option>

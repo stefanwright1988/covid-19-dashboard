@@ -31,7 +31,7 @@ export const AppContext = createContext<IContext>({
   updateLoading: (value) => {},
   countries: [],
   updateCountries: (value) => {},
-  country: "",
+  country: "worldwide",
   updateCountry: (value: string) => {},
   daysToUse: 30,
   updateDaysToUse: (value: number) => {},

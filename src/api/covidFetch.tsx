@@ -34,14 +34,14 @@ const getCovidInfo = async (countryCode: string) => {
 const getCovidHistory = async (countryCode: string, days: number) => {
   try {
     const response =
-      countryCode.toLowerCase() === "worldwide"
+      countryCode.toLowerCase() === "worldwide" || countryCode === ""
         ? await fetch(`${HISTORICAL_URL}/all?lastdays=${days}`)
         : await fetch(`${HISTORICAL_URL}/${countryCode}?lastdays=${days}`);
     let data = await response.json();
     data =
-      countryCode.toLowerCase() === "worldwide"
+      countryCode.toLowerCase() === "worldwide" || countryCode === ""
         ? transposeWorldwideResponse(data)
-        : transposeCountryResponse(data);
+        : transposeCountryResponse(data.timeline);
     return data;
   } catch (err) {
     console.log(err);
@@ -69,7 +69,7 @@ function transposeCountryResponse(data: any) {
   var newData: CovidHistory = { cases: [], recovered: [], deaths: [] };
   for (var i of propertyNames) {
     newData[i as keyof CovidHistory] = [];
-    const test: CovidHistoryCase = data[i].timeline;
+    const test: CovidHistoryCase = data[i];
     var children = Object.entries(test);
     for (const j of children) {
       var newObj: CovidHistoryCase = { date: "", reports: 0 };

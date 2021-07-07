@@ -9,8 +9,9 @@ interface LargeCardProps {
 }
 
 const LargeCard = (props: LargeCardProps) => {
+  let historyType = props.type.toLowerCase() as keyof CovidHistory;
   const { globalCovidHistory, daysToUse } = useContext(AppContext);
-  if (!globalCovidHistory.cases.length) {
+  if (!globalCovidHistory[historyType].length) {
     return (
       <StyledLargeCard
         subtitle=""
@@ -21,8 +22,7 @@ const LargeCard = (props: LargeCardProps) => {
       />
     );
   }
-  let historyType = props.type.toLowerCase() as keyof CovidHistory,
-    minCardData = globalCovidHistory[historyType][0].reports ?? 0,
+  let minCardData = globalCovidHistory[historyType][0].reports ?? 0,
     maxCardData =
       globalCovidHistory[historyType][
         globalCovidHistory[historyType].length - 1

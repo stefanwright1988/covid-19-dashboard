@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
 import {
-  LineChart,
+  AreaChart,
   Line,
   ResponsiveContainer,
   XAxis,
   YAxis,
   CartesianGrid,
+  Area,
 } from "recharts";
 import { abbreviateNumber } from "../../../helpers/number";
 import Loader from "../../Loader/Loader";
@@ -196,10 +197,9 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
             {loading || props.isBlank ? (
               <Loader />
             ) : (
-              <LineChart data={props.cardData}>
+              <AreaChart data={props.cardData}>
                 <XAxis dataKey="date" stroke="#fff" />
                 <YAxis
-                  tick={{ fontSize: 14, width: 250 }}
                   type="number"
                   domain={[props.cardData[0].reports, "auto"]}
                   tickFormatter={(tick: number) => {
@@ -207,9 +207,9 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   }}
                   stroke="#fff"
                 />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Line type="monotone" dataKey="reports" stroke="#fff" />
-              </LineChart>
+                <CartesianGrid />
+                <Area type="monotone" dataKey="reports" stroke="#fff" />
+              </AreaChart>
             )}
           </ResponsiveContainer>
         </StyledLargeCardTopLine>
