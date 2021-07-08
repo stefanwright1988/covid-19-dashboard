@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
 import {
   AreaChart,
-  Line,
   ResponsiveContainer,
   XAxis,
   YAxis,

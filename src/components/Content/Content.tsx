@@ -12,9 +12,9 @@ import { CountriesTable } from "../Tables/tables";
 import StyledContent from "./Content.styled";
 import SmallCardsContainer from "../Cards/Small/SmallCardsContainer";
 import LargeCardsContainer from "../Cards/Large/LargeCardsContainer";
-import { Dropdown, Option } from "../Form/form";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import Select from "react-select";
 
 const Content = () => {
   const {
@@ -38,11 +38,11 @@ const Content = () => {
       const response: CovidInfo[] = await getCountries();
 
       const countryList = response.map((country: CovidInfo) => ({
-        name: country.country,
+        label: country.country,
         value: country.countryInfo.iso3,
       }));
 
-      countryList.unshift({ name: "Worldwide", value: "worldwide" });
+      countryList.unshift({ label: "Worldwide", value: "worldwide" });
       updateCountries(countryList);
       const orderedTableData: CovidInfo[] = orderTableDataBy(
         response,
@@ -84,19 +84,20 @@ const Content = () => {
   };
   return (
     <StyledContent>
-      <Dropdown onChange={changeCountry}>
+      <Select options={countries} />
+      {/* <Dropdown onChange={changeCountry}>
         {countries.map((value) => {
           return <Option value={value.name}>{value.name}</Option>;
         })}
       </Dropdown>
-      <Dropdown onChange={changeDays}>
+      <Dropdown onChange={changeDays} daysToUse={daysToUse}>
         <Option value={7}>7 Days</Option>
         <Option value={30}>30 Days</Option>
         <Option value={60}>60 Days</Option>
         <Option value={90}>90 Days</Option>
         <Option value={180}>180 Days</Option>
         <Option value={365}>365 Days</Option>
-      </Dropdown>
+      </Dropdown> */}
       <SmallCardsContainer />
       <LargeCardsContainer cardData={globalCovidHistory} />
       <CountriesTable tableData={tableData} />

@@ -40,7 +40,7 @@ export interface CovidHistory {
   recovered: CovidHistoryCase[];
 }
 export interface Country {
-  name: string;
+  label: string;
   value: string;
 }
 
