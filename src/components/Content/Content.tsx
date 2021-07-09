@@ -51,7 +51,7 @@ const Content = () => {
       );
       updateTableData(orderedTableData);
       updateMapCountries(response);
-      updateCountry("worldwide");
+      updateCountry({ label: "Worldwide", value: "worldwide" });
     };
     getAllCountries();
   }, []);
@@ -59,7 +59,7 @@ const Content = () => {
   useEffect(() => {
     updateLoading(true);
     const getCovidHistoryByCountry = async () => {
-      const response = await getCovidHistory(country, daysToUse);
+      const response = await getCovidHistory(country.value, daysToUse.value);
       updateGlobalCovidHistory(response);
       updateLoading(false);
     };
@@ -68,7 +68,7 @@ const Content = () => {
 
   useEffect(() => {
     const getCovidStats = async () => {
-      const response = await getCovidInfo(country);
+      const response = await getCovidInfo(country.value);
       updateCovidInfo(response);
       updateLoading(false);
     };
@@ -76,15 +76,33 @@ const Content = () => {
   }, [country]);
 
   const changeDays = (e: any) => {
-    updateDaysToUse(e.target.value);
+    updateDaysToUse({ value: e.value, label: e.label });
   };
 
   const changeCountry = (e: any) => {
-    updateCountry(e.target.value);
+    updateCountry({ value: e.value, label: e.label });
   };
+
+  const daysForSelection = [
+    { value: 7, label: 7 },
+    { value: 30, label: 30 },
+    { value: 60, label: 60 },
+    { value: 90, label: 90 },
+    { value: 180, label: 180 },
+    { value: 365, label: 365 },
+  ];
   return (
     <StyledContent>
-      <Select options={countries} />
+      <Select
+        options={countries}
+        defaultValue={country}
+        onChange={changeCountry}
+      />
+      <Select
+        options={daysForSelection}
+        defaultValue={daysToUse}
+        onChange={changeDays}
+      />
       {/* <Dropdown onChange={changeCountry}>
         {countries.map((value) => {
           return <Option value={value.name}>{value.name}</Option>;

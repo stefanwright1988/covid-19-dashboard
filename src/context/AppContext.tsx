@@ -7,10 +7,10 @@ type IContext = {
   updateLoading: (value: boolean) => void;
   countries: Country[];
   updateCountries: (value: Country[]) => void;
-  country: string;
-  updateCountry: (value: string) => void;
-  daysToUse: number;
-  updateDaysToUse: (value: number) => void;
+  country: Country;
+  updateCountry: (value: Country) => void;
+  daysToUse: { value: number; label: number };
+  updateDaysToUse: (value: { value: number; label: number }) => void;
   covidInfo: CovidInfo | undefined;
   updateCovidInfo: (value: CovidInfo | undefined) => void;
   tableData: CovidInfo[];
@@ -31,10 +31,10 @@ export const AppContext = createContext<IContext>({
   updateLoading: (value) => {},
   countries: [],
   updateCountries: (value) => {},
-  country: "worldwide",
-  updateCountry: (value: string) => {},
-  daysToUse: 30,
-  updateDaysToUse: (value: number) => {},
+  country: { label: "worldwide", value: "Worldwide" },
+  updateCountry: (value: Country) => {},
+  daysToUse: { value: 7, label: 7 },
+  updateDaysToUse: (value: { value: number; label: number }) => {},
   covidInfo: undefined,
   updateCovidInfo: (value: CovidInfo | undefined) => {},
   tableData: [],
@@ -59,12 +59,15 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateCountries = (value: Country[]) => {
     setCountries(value);
   };
-  const [country, setCountry] = useState<string>("");
-  const updateCountry = (value: string) => {
+  const [country, setCountry] = useState<Country>({
+    value: "worldwide",
+    label: "Worldwide",
+  });
+  const updateCountry = (value: Country) => {
     setCountry(value);
   };
-  const [daysToUse, setDaysToUse] = useState<number>(30);
-  const updateDaysToUse = (value: number) => {
+  const [daysToUse, setDaysToUse] = useState({ value: 30, label: 30 });
+  const updateDaysToUse = (value: { value: number; label: number }) => {
     setDaysToUse(value);
   };
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);

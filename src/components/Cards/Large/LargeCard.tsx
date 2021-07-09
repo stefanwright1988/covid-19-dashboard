@@ -32,7 +32,7 @@ const LargeCard = (props: LargeCardProps) => {
       subtitle={abbreviateNumber(difference(minCardData, maxCardData), 3)}
       type={props.type}
       cardData={globalCovidHistory[historyType]}
-      daysToUse={daysToUse}
+      daysToUse={daysToUse.value}
     />
   );
 };

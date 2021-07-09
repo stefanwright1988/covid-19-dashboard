@@ -8,7 +8,7 @@ const SmallCardsContainer = () => {
   const { country, caseTypes } = useContext(AppContext);
   return (
     <>
-      <h1>{toSentenceCase(country)} - Stats to date</h1>
+      <h1>{toSentenceCase(country.label)} - Stats to date</h1>
       <SmallStyledCardsContainer>
         {caseTypes.map((type) => {
           return <SmallCard type={type} />;

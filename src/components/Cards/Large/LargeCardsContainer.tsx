@@ -12,7 +12,7 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
   const { country, caseTypes } = useContext(AppContext);
   return (
     <>
-      <h1>{toSentenceCase(country)} - Trend data</h1>
+      <h1>{toSentenceCase(country.label)} - Trend data</h1>
       <LargeStyledCardsContainer>
         {caseTypes
           .filter((type) => type !== "active")
