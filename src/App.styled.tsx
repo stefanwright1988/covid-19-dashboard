@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { device } from "./vars";
 
 const StyledApp = styled.div`
-  top: 0;
   height: 100%;
-  position: relative;
+  width: 100%;
 `;
 
 export default StyledApp;

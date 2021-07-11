@@ -6,7 +6,7 @@ import ContentContainer from "./components/ContentContainer/ContentContainer";
 function App() {
   return (
     <StyledApp>
-      <SidebarContainer />
+      {/* <SidebarContainer /> */}
       <ContentContainer />
     </StyledApp>
   );

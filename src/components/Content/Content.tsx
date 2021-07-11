@@ -84,40 +84,77 @@ const Content = () => {
   };
 
   const daysForSelection = [
-    { value: 7, label: 7 },
-    { value: 30, label: 30 },
-    { value: 60, label: 60 },
-    { value: 90, label: 90 },
-    { value: 180, label: 180 },
-    { value: 365, label: 365 },
+    { value: 7, label: "Last 7 days" },
+    { value: 30, label: "Last 30 days" },
+    { value: 60, label: "Last 60 days" },
+    { value: 90, label: "Last 90 days" },
+    { value: 180, label: "Last 180 days" },
+    { value: 365, label: "Last 365 days" },
   ];
   return (
     <StyledContent>
-      <Select
-        options={countries}
-        defaultValue={country}
-        onChange={changeCountry}
-      />
-      <Select
-        options={daysForSelection}
-        defaultValue={daysToUse}
-        onChange={changeDays}
-      />
-      {/* <Dropdown onChange={changeCountry}>
-        {countries.map((value) => {
-          return <Option value={value.name}>{value.name}</Option>;
-        })}
-      </Dropdown>
-      <Dropdown onChange={changeDays} daysToUse={daysToUse}>
-        <Option value={7}>7 Days</Option>
-        <Option value={30}>30 Days</Option>
-        <Option value={60}>60 Days</Option>
-        <Option value={90}>90 Days</Option>
-        <Option value={180}>180 Days</Option>
-        <Option value={365}>365 Days</Option>
-      </Dropdown> */}
-      <SmallCardsContainer />
-      <LargeCardsContainer cardData={globalCovidHistory} />
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          backgroundColor: "blue",
+          borderRadius: "10px",
+          justifyContent: "space-between",
+          padding: "0 5%",
+        }}
+      >
+        <div
+          style={{
+            width: "33%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
+          <h2>Select country:</h2>
+          <Select
+            options={countries}
+            defaultValue={country}
+            onChange={changeCountry}
+            styles={{
+              container: (base) => ({
+                ...base,
+                flex: 1,
+                padding: "0 10px",
+              }),
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            width: "33%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
+          <h2>Select date range</h2>
+          <Select
+            options={daysForSelection}
+            defaultValue={daysToUse}
+            onChange={changeDays}
+            styles={{
+              container: (base) => ({
+                ...base,
+                flex: 1,
+                padding: "0 10px",
+              }),
+            }}
+          />
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <SmallCardsContainer />
+        <LargeCardsContainer cardData={globalCovidHistory} />
+      </div>
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />
     </StyledContent>

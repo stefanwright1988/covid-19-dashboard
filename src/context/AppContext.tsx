@@ -9,8 +9,8 @@ type IContext = {
   updateCountries: (value: Country[]) => void;
   country: Country;
   updateCountry: (value: Country) => void;
-  daysToUse: { value: number; label: number };
-  updateDaysToUse: (value: { value: number; label: number }) => void;
+  daysToUse: { value: number; label: string };
+  updateDaysToUse: (value: { value: number; label: string }) => void;
   covidInfo: CovidInfo | undefined;
   updateCovidInfo: (value: CovidInfo | undefined) => void;
   tableData: CovidInfo[];
@@ -33,8 +33,8 @@ export const AppContext = createContext<IContext>({
   updateCountries: (value) => {},
   country: { label: "worldwide", value: "Worldwide" },
   updateCountry: (value: Country) => {},
-  daysToUse: { value: 7, label: 7 },
-  updateDaysToUse: (value: { value: number; label: number }) => {},
+  daysToUse: { value: 7, label: "Last 7 days" },
+  updateDaysToUse: (value: { value: number; label: string }) => {},
   covidInfo: undefined,
   updateCovidInfo: (value: CovidInfo | undefined) => {},
   tableData: [],
@@ -66,8 +66,11 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateCountry = (value: Country) => {
     setCountry(value);
   };
-  const [daysToUse, setDaysToUse] = useState({ value: 30, label: 30 });
-  const updateDaysToUse = (value: { value: number; label: number }) => {
+  const [daysToUse, setDaysToUse] = useState({
+    value: 7,
+    label: "Last 7 days",
+  });
+  const updateDaysToUse = (value: { value: number; label: string }) => {
     setDaysToUse(value);
   };
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);

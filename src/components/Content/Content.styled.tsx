@@ -15,6 +15,13 @@ const StyledContent = styled.main`
   margin-right: auto;
   padding-left: 30px;
   padding-right: 30px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 200px;
+  min-height: 500px;
 `;
 
 export default StyledContent;

@@ -40,19 +40,11 @@ const StyledLargeCardContainer = styled.div`
   margin: 0;
   box-sizing: border-box;
   display: flex;
-  flex-grow: 0;
-  max-width: 33.333333%;
-  flex-basis: 33.333333%;
+  flex-grow: 1;
+  flex-basis: 50%;
   padding: 0 15px !important;
 `;
 const StyledLargeCardInner = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  color: rgba(0, 0, 0, 0.87);
   width: 100%;
   border: 0;
   display: flex;
@@ -68,17 +60,6 @@ const StyledLargeCardInner = styled.div`
   flex-direction: column;
 `;
 const StyledLargeCardTopLine = styled.div<StyledLargeCardTopLineProps>`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  font-size: 0.875rem;
-  word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  z-index: 3 !important;
-  border-bottom: none;
-  color: #fff;
   margin: 0 15px;
   position: relative;
   background: linear-gradient(
@@ -139,16 +120,6 @@ const StyledLargeCardMidLineSubTitle = styled.h3`
   margin: 0 !important;
 `;
 const StyledLargeCardBottomLine = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 0.875rem;
-  word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  border: 0;
   margin: 0 15px 10px;
   display: flex;
   padding: 0;

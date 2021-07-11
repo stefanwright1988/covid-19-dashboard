@@ -18,19 +18,12 @@ const StyledSmallCardContainer = styled.div`
   margin: 0;
   box-sizing: border-box;
   flex-grow: 0;
-  max-width: 25%;
-  flex-basis: 25%;
+  max-width: 50%;
+  flex-basis: 50%;
   padding: 0 15px !important;
 `;
 
 const StyledSmallCardInner = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  color: rgba(0, 0, 0, 0.87);
   width: 100%;
   border: 0;
   display: flex;
@@ -47,17 +40,6 @@ const StyledSmallCardInner = styled.div`
 `;
 
 const StyledSmallCardTopLine = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  font-size: 0.875rem;
-  word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  z-index: 3 !important;
-  border-bottom: none;
-  color: #fff;
   margin: 0 15px;
   padding: 0;
   position: relative;
@@ -68,16 +50,6 @@ const StyledSmallCardTopLine = styled.div`
 `;
 
 const StyledSmallCardBottomLine = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 0.875rem;
-  word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  border: 0;
   margin: 0 15px 10px;
   display: flex;
   padding: 0;
@@ -149,7 +121,7 @@ const StyledSmallCardIconSpan = styled.span`
   user-select: none;
   width: 56px;
   height: 56px;
-  overflow: unset;
+  overflow: 90%;
   font-size: 36px;
   text-align: center;
   line-height: 56px;
