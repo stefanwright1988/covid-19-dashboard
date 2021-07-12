@@ -9,23 +9,13 @@ interface LargeCardsContainerProps {
   cardData: any;
 }
 
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-};
 const LargeCardsContainer = (props: LargeCardsContainerProps) => {
   const { country, caseTypes } = useContext(AppContext);
   return (
     <>
       <LargeStyledCardsContainer>
         <h1>{toSentenceCase(country.label)} - Trend data</h1>
-        <Slider {...sliderSettings}>
-          {caseTypes
-            .filter((type) => type !== "active")
-            .map((type) => {
-              return <LargeCard type={toSentenceCase(type)} />;
-            })}
-        </Slider>
+        <LargeCard type={toSentenceCase(caseTypes[0])} />
       </LargeStyledCardsContainer>
     </>
   );

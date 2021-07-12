@@ -23,3 +23,7 @@ export const abbreviateNumber = (value: number, decPlaces: number) => {
 export const difference = (num1: number, num2: number) => {
   return num2 - num1;
 };
+
+export const percentage = (num1: number, num2: number) => {
+  return ((num1 / num2) * 100).toFixed(2);
+};
