@@ -39,7 +39,7 @@ export const AppContext = createContext<IContext>({
   updateTableData: (value: CovidInfo[]) => {},
   mapCountries: [],
   updateMapCountries: (value: CovidInfo[]) => {},
-  globalCovidHistory: { cases: [], recovered: [], deaths: [] },
+  globalCovidHistory: { active: [], cases: [], recovered: [], deaths: [] },
   updateGlobalCovidHistory: (value: CovidHistory) => {},
   mapData: {},
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
@@ -74,6 +74,7 @@ const AppContextProvider: React.FC = ({ children }) => {
     setCovidInfo(value);
   };
   const [globalCovidHistory, setGlobalCovidHistory] = useState<CovidHistory>({
+    active: [],
     cases: [],
     recovered: [],
     deaths: [],

@@ -50,7 +50,12 @@ const getCovidHistory = async (countryCode: string, days: number) => {
 };
 function transposeWorldwideResponse(data: any) {
   var propertyNames = Object.getOwnPropertyNames(data);
-  var newData: CovidHistory = { cases: [], recovered: [], deaths: [] };
+  var newData: CovidHistory = {
+    active: [],
+    cases: [],
+    recovered: [],
+    deaths: [],
+  };
   for (var i of propertyNames) {
     newData[i as keyof CovidHistory] = [];
     const test: CovidHistoryCase = data[i];
@@ -66,7 +71,12 @@ function transposeWorldwideResponse(data: any) {
 }
 function transposeCountryResponse(data: any) {
   var propertyNames = Object.getOwnPropertyNames(data);
-  var newData: CovidHistory = { cases: [], recovered: [], deaths: [] };
+  var newData: CovidHistory = {
+    active: [],
+    cases: [],
+    recovered: [],
+    deaths: [],
+  };
   for (var i of propertyNames) {
     newData[i as keyof CovidHistory] = [];
     const test: CovidHistoryCase = data[i];

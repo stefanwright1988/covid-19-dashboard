@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const LargeStyledCardsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex: 1;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-content: space-around;
   max-width: 50%;
   height: 100%;
