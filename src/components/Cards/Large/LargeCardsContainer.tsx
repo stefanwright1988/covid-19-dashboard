@@ -63,21 +63,14 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
           {toSentenceCase(country.label)} - Trend data
         </h1>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <button
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              goToPrevGraph(currentIndex);
-            }}
-          >
-            {toSentenceCase(prevLabel)}
-          </button>
-          <LargeCard type={toSentenceCase(filteredCaseTypes[currentIndex])} />
-          <button
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              goToNextGraph(currentIndex);
-            }}
-          >
-            {toSentenceCase(nextLabel)}
-          </button>
+          <LargeCard
+            type={toSentenceCase(filteredCaseTypes[currentIndex])}
+            prevButton={goToPrevGraph}
+            nextButton={goToNextGraph}
+            currentIndex={currentIndex}
+            nextLabel={nextLabel}
+            prevLabel={prevLabel}
+          />
         </div>
       </LargeStyledCardsContainer>
     </>

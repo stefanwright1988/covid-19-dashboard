@@ -12,6 +12,7 @@ import { abbreviateNumber } from "../../../helpers/number";
 import Loader from "../../Loader/Loader";
 import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
+import { toSentenceCase } from "../../../helpers/strings";
 interface StyledLargeCardTopLineProps {
   type?: string;
 }
@@ -83,10 +84,15 @@ const StyledLargeCardMidLine = styled.div`
   -webkit-tap-highlight-color: transparent;
   letter-spacing: normal !important;
   -webkit-font-smoothing: antialiased;
-  flex: 1 1 auto;
   padding: 0.9375rem 20px;
   position: relative;
-  -webkit-box-flex: 1;
+  display: grid;
+  justify-content: space-around;
+  justify-items: center;
+  grid-auto-columns: 33%;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
 `;
 const StyledLargeCardMidLineTitle = styled.p`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -156,6 +162,11 @@ interface StyledLargeCardProps {
   cardData: any;
   daysToUse: number;
   isBlank?: boolean;
+  prevButton: (currentIndex: number) => void;
+  nextButton: (currentIndex: number) => void;
+  currentIndex: number;
+  nextLabel: string;
+  prevLabel: string;
 }
 const StyledLargeCard = (props: StyledLargeCardProps) => {
   const { loading } = useContext(AppContext);
@@ -184,12 +195,28 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
           </ResponsiveContainer>
         </StyledLargeCardTopLine>
         <StyledLargeCardMidLine>
-          <StyledLargeCardMidLineTitle>
-            {props.type}
-          </StyledLargeCardMidLineTitle>
-          <StyledLargeCardMidLineSubTitle>
-            {props.subtitle}
-          </StyledLargeCardMidLineSubTitle>
+          <button
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              props.prevButton(props.currentIndex);
+            }}
+          >
+            {toSentenceCase(props.prevLabel)}
+          </button>
+          <div>
+            <StyledLargeCardMidLineTitle>
+              {props.type}
+            </StyledLargeCardMidLineTitle>
+            <StyledLargeCardMidLineSubTitle>
+              {props.subtitle}
+            </StyledLargeCardMidLineSubTitle>
+          </div>
+          <button
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              props.nextButton(props.currentIndex);
+            }}
+          >
+            {toSentenceCase(props.nextLabel)}
+          </button>
         </StyledLargeCardMidLine>
         <StyledLargeCardBottomLine>
           <StyledLargeCardBottomLineContent>

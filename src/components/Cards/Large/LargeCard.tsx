@@ -6,6 +6,11 @@ import { CovidHistory } from "../../../interfaces/covidInterface";
 
 interface LargeCardProps {
   type: string;
+  prevButton: (currentIndex: number) => void;
+  nextButton: (currentIndex: number) => void;
+  currentIndex: number;
+  nextLabel: string;
+  prevLabel: string;
 }
 
 const LargeCard = (props: LargeCardProps) => {
@@ -19,6 +24,11 @@ const LargeCard = (props: LargeCardProps) => {
         cardData=""
         daysToUse={0}
         isBlank={true}
+        prevButton={props.prevButton}
+        nextButton={props.nextButton}
+        currentIndex={props.currentIndex}
+        nextLabel={props.nextLabel}
+        prevLabel={props.prevLabel}
       />
     );
   }
@@ -33,6 +43,11 @@ const LargeCard = (props: LargeCardProps) => {
       type={props.type}
       cardData={globalCovidHistory[historyType]}
       daysToUse={daysToUse.value}
+      prevButton={props.prevButton}
+      nextButton={props.nextButton}
+      currentIndex={props.currentIndex}
+      nextLabel={props.nextLabel}
+      prevLabel={props.prevLabel}
     />
   );
 };
