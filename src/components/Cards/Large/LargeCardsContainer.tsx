@@ -14,6 +14,8 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
   const { country, caseTypes } = useContext(AppContext),
     filteredCaseTypes = caseTypes.filter((type) => type !== "active"),
     [currentIndex, setCurrentIndex] = useState(0),
+    [nextIndex, setNextIndex] = useState(1),
+    [prevIndex, setPrevIndex] = useState(2),
     [nextLabel, setNextLabel] = useState(filteredCaseTypes[1]),
     [prevLabel, setPrevLabel] = useState(
       filteredCaseTypes[filteredCaseTypes.length - 1]
@@ -22,39 +24,54 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
     endOfIndex = indexLen - 1,
     goToNextGraph = (currentIndex: number) => {
       let increment = currentIndex + 1,
-        updateIndex = 0,
-        nextLabel = 0,
-        prevLabel = 0;
+        updateCurrentIndex = 0,
+        updateNextLabel = 0,
+        updateNextIndex = 0,
+        updatePrevLabel = 0,
+        updatePrevIndex = 0;
       if (increment === indexLen) {
-        updateIndex = 0;
-        nextLabel = 1;
-        prevLabel = endOfIndex;
+        updateCurrentIndex = 0;
+        updateNextLabel = 1;
+        updateNextIndex = 1;
+        updatePrevLabel = endOfIndex;
+        updatePrevIndex = endOfIndex;
       } else {
-        updateIndex = increment;
-        prevLabel = currentIndex;
-        nextLabel = increment + 1 === indexLen ? 0 : increment + 1;
+        updateCurrentIndex = increment;
+        updatePrevLabel = currentIndex;
+        updatePrevIndex = currentIndex;
+        updateNextLabel = increment + 1 === indexLen ? 0 : increment + 1;
+        updateNextIndex = increment + 1 === indexLen ? 0 : increment + 1;
       }
-      setCurrentIndex(updateIndex);
-      setNextLabel(filteredCaseTypes[nextLabel]);
-      setPrevLabel(filteredCaseTypes[prevLabel]);
+      setCurrentIndex(updateCurrentIndex);
+      /*       setNextIndex(updateNextIndex);
+      setPrevIndex(updatePrevIndex);
+      setNextLabel(filteredCaseTypes[updateNextLabel]);
+      setPrevLabel(filteredCaseTypes[updatePrevLabel]); */
     },
     goToPrevGraph = (currentIndex: number) => {
       let decrement = currentIndex - 1,
-        updateIndex = 0,
-        nextLabel = 0,
-        prevLabel = 0;
+        updateCurrentIndex = 0,
+        updateNextLabel = 0,
+        updateNextIndex = 0,
+        updatePrevLabel = 0,
+        updatePrevIndex = 0;
       if (decrement < 0) {
-        updateIndex = endOfIndex;
-        nextLabel = 0;
-        prevLabel = endOfIndex - 1;
+        updateCurrentIndex = endOfIndex;
+        updateNextLabel = 0;
+        updatePrevLabel = endOfIndex - 1;
+        updatePrevIndex = endOfIndex - 1;
       } else {
-        updateIndex = decrement;
-        prevLabel = decrement - 1 < 0 ? endOfIndex : decrement - 1;
-        nextLabel = currentIndex;
+        updateCurrentIndex = decrement;
+        updatePrevLabel = decrement - 1 < 0 ? endOfIndex : decrement - 1;
+        updatePrevIndex = decrement - 1 < 0 ? endOfIndex : decrement - 1;
+        updateNextLabel = currentIndex;
+        updateNextIndex = currentIndex;
       }
-      setCurrentIndex(updateIndex);
-      setNextLabel(filteredCaseTypes[nextLabel]);
-      setPrevLabel(filteredCaseTypes[prevLabel]);
+      setCurrentIndex(updateCurrentIndex);
+      /*       setNextIndex(updateNextIndex);
+      setPrevIndex(updatePrevIndex);
+      setNextLabel(filteredCaseTypes[updateNextLabel]);
+      setPrevLabel(filteredCaseTypes[updatePrevLabel]); */
     };
   return (
     <>
@@ -68,8 +85,10 @@ const LargeCardsContainer = (props: LargeCardsContainerProps) => {
             prevButton={goToPrevGraph}
             nextButton={goToNextGraph}
             currentIndex={currentIndex}
-            nextLabel={nextLabel}
-            prevLabel={prevLabel}
+            nextIndex={nextIndex}
+            prevIndex={prevIndex}
+            nextLabel={toSentenceCase(nextLabel)}
+            prevLabel={toSentenceCase(prevLabel)}
           />
         </div>
       </LargeStyledCardsContainer>

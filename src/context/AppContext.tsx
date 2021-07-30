@@ -22,6 +22,10 @@ type IContext = {
   mapData: {};
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => void;
   caseTypes: ["cases", "active", "deaths", "recovered"];
+  activeCaseType: "cases" | "active" | "deaths" | "recovered";
+  updateActiveCaseType: (
+    value: "cases" | "active" | "deaths" | "recovered"
+  ) => "";
 };
 
 export const AppContext = createContext<IContext>({
@@ -44,6 +48,9 @@ export const AppContext = createContext<IContext>({
   mapData: {},
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
   caseTypes: ["cases", "active", "deaths", "recovered"],
+  activeCaseType: "cases",
+  updateActiveCaseType: (value: "cases" | "active" | "deaths" | "recovered") =>
+    "",
 });
 
 const AppContextProvider: React.FC = ({ children }) => {
@@ -104,6 +111,14 @@ const AppContextProvider: React.FC = ({ children }) => {
     "deaths",
     "recovered",
   ]);
+  const [activeCaseType, setActiveCaseType] = useState<
+    "cases" | "active" | "deaths" | "recovered"
+  >("cases");
+  const updateActiveCaseType = (
+    value: "cases" | "active" | "deaths" | "recovered"
+  ) => {
+    setActiveCaseType(value);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -126,6 +141,8 @@ const AppContextProvider: React.FC = ({ children }) => {
         mapData,
         updateMapData,
         caseTypes,
+        activeCaseType,
+        updateActiveCaseType,
       }}
     >
       {children}
