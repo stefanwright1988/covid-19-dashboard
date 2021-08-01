@@ -153,7 +153,7 @@ const Content = () => {
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <SmallCardsContainer />
-        <LargeCardsContainer cardData={globalCovidHistory} />
+        <LargeCardsContainer />
       </div>
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />

@@ -23,9 +23,11 @@ type IContext = {
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => void;
   caseTypes: ["cases", "active", "deaths", "recovered"];
   activeCaseType: "cases" | "active" | "deaths" | "recovered";
-  updateActiveCaseType: (
-    value: "cases" | "active" | "deaths" | "recovered"
-  ) => "";
+  updateActiveCaseType: (value: "cases" | "deaths" | "recovered") => void;
+  nextCaseType: "cases" | "active" | "deaths" | "recovered";
+  updateNextCaseType: (value: "cases" | "deaths" | "recovered") => void;
+  previousCaseType: "cases" | "active" | "deaths" | "recovered";
+  updatePreviousCaseType: (value: "cases" | "deaths" | "recovered") => void;
 };
 
 export const AppContext = createContext<IContext>({
@@ -49,8 +51,11 @@ export const AppContext = createContext<IContext>({
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
   caseTypes: ["cases", "active", "deaths", "recovered"],
   activeCaseType: "cases",
-  updateActiveCaseType: (value: "cases" | "active" | "deaths" | "recovered") =>
-    "",
+  updateActiveCaseType: (value: "cases" | "deaths" | "recovered") => {},
+  previousCaseType: "recovered",
+  updatePreviousCaseType: (value: "cases" | "deaths" | "recovered") => {},
+  nextCaseType: "deaths",
+  updateNextCaseType: (value: "cases" | "deaths" | "recovered") => {},
 });
 
 const AppContextProvider: React.FC = ({ children }) => {
@@ -112,12 +117,22 @@ const AppContextProvider: React.FC = ({ children }) => {
     "recovered",
   ]);
   const [activeCaseType, setActiveCaseType] = useState<
-    "cases" | "active" | "deaths" | "recovered"
+    "cases" | "deaths" | "recovered"
   >("cases");
-  const updateActiveCaseType = (
-    value: "cases" | "active" | "deaths" | "recovered"
-  ) => {
+  const updateActiveCaseType = (value: "cases" | "deaths" | "recovered") => {
     setActiveCaseType(value);
+  };
+  const [previousCaseType, setPreviousCaseType] = useState<
+    "cases" | "deaths" | "recovered"
+  >("recovered");
+  const updatePreviousCaseType = (value: "cases" | "deaths" | "recovered") => {
+    setPreviousCaseType(value);
+  };
+  const [nextCaseType, setNextCaseType] = useState<
+    "cases" | "deaths" | "recovered"
+  >("deaths");
+  const updateNextCaseType = (value: "cases" | "deaths" | "recovered") => {
+    setNextCaseType(value);
   };
   return (
     <AppContext.Provider
@@ -143,6 +158,10 @@ const AppContextProvider: React.FC = ({ children }) => {
         caseTypes,
         activeCaseType,
         updateActiveCaseType,
+        previousCaseType,
+        updatePreviousCaseType,
+        nextCaseType,
+        updateNextCaseType,
       }}
     >
       {children}

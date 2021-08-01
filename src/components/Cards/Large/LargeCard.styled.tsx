@@ -14,6 +14,7 @@ import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
 import { toSentenceCase } from "../../../helpers/strings";
 import { CovidHistory } from "../../../interfaces/covidInterface";
+import "./LargeCardStyled.css";
 interface StyledLargeCardTopLineProps {
   type?: string;
 }
@@ -157,65 +158,93 @@ const StyledLargeCardBottomLineContent = styled.div`
   }
 `;
 
-const changeOrder = (direction: any) => {
+const changeOrder = (
+  direction: any,
+  updateActiveCaseType: any,
+  updateNextCaseType: any,
+  updatePreviousCaseType: any
+) => {
   const allSlides = document.querySelectorAll(".single-slide");
   const previous = "0";
   const current = "1";
   const next = "2";
 
   for (const slide of allSlides as any) {
-    const order = slide.getAttribute("data-order");
-
-    switch (order) {
+    switch (slide.getAttribute("data-order")) {
       case current:
         slide.setAttribute(
           "data-order",
-          direction === "forward" ? next : previous
+          direction === "forward" ? previous : next
         );
         break;
       case next:
-        slide.setAttribute("data-order", "forward" ? previous : current);
+        slide.setAttribute(
+          "data-order",
+          direction === "forward" ? current : previous
+        );
         break;
       case previous:
         slide.setAttribute(
           "data-order",
-          direction === "forward" ? current : next
+          direction === "forward" ? next : current
         );
         break;
     }
   }
+  switch (
+    document
+      .querySelectorAll(`[data-order="1"]`)[0]
+      .querySelector("p")
+      ?.innerText.toLowerCase()
+  ) {
+    case "cases":
+      updateNextCaseType("deaths");
+      updateActiveCaseType("cases");
+      updatePreviousCaseType("recovered");
+      break;
+    case "deaths":
+      updateNextCaseType("recovered");
+      updateActiveCaseType("deaths");
+      updatePreviousCaseType("cases");
+      break;
+    case "recovered":
+      updateNextCaseType("cases");
+      updateActiveCaseType("recovered");
+      updatePreviousCaseType("deaths");
+      break;
+    default:
+      break;
+  }
 };
 interface StyledLargeCardProps {
-  currentDetails?: string;
-  currentLabel?: string;
-  cardData: any;
-  daysToUse: number;
-  isBlank?: boolean;
-  prevButton: (currentIndex: number) => void;
-  prevDetails: string;
-  nextButton: (currentIndex: number) => void;
-  nextDetails: string;
-  currentIndex: number;
-  nextLabel: string;
-  prevLabel: string;
-  nextIndex: number;
-  prevIndex: number;
+  isBlank: boolean;
 }
 const StyledLargeCard = (props: StyledLargeCardProps) => {
-  const { loading, globalCovidHistory, daysToUse } = useContext(AppContext);
+  const {
+    loading,
+    globalCovidHistory,
+    daysToUse,
+    activeCaseType,
+    updateActiveCaseType,
+    updateNextCaseType,
+    updatePreviousCaseType,
+  } = useContext(AppContext);
   return (
     <StyledLargeCardContainer>
       {loading || props.isBlank ? (
         <Loader />
       ) : (
         <StyledLargeCardInner>
-          <StyledLargeCardTopLine type={props.currentLabel}>
+          <StyledLargeCardTopLine type={toSentenceCase(activeCaseType)}>
             <ResponsiveContainer>
-              <AreaChart data={globalCovidHistory["cases"]}>
+              <AreaChart data={globalCovidHistory[activeCaseType]}>
                 <XAxis dataKey="date" stroke="#fff" />
                 <YAxis
                   type="number"
-                  domain={[globalCovidHistory["cases"][0].reports, "auto"]}
+                  domain={[
+                    globalCovidHistory[activeCaseType][0].reports,
+                    "auto",
+                  ]}
                   tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
                   }}
@@ -227,45 +256,22 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
             </ResponsiveContainer>
           </StyledLargeCardTopLine>
           <StyledLargeCardMidLine>
-            {/*           <button
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              props.prevButton(props.currentIndex);
-              changeOrder("reverse");
-            }}
-          >
-            Back
-          </button> */}
+            <button
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                changeOrder(
+                  "reverse",
+                  updateActiveCaseType,
+                  updateNextCaseType,
+                  updatePreviousCaseType
+                );
+              }}
+            >
+              Back
+            </button>
             <div
               className="all-slides"
               style={{ display: "flex", margin: "0 auto" }}
             >
-              <div
-                className="single-slide"
-                data-order="1"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  position: "absolute",
-                  transition: "2s ease",
-                }}
-              >
-                <StyledLargeCardMidLineTitle>
-                  {props.prevLabel}
-                </StyledLargeCardMidLineTitle>
-                <StyledLargeCardMidLineSubTitle>
-                  {abbreviateNumber(
-                    difference(
-                      globalCovidHistory["recovered"][0].reports ?? 0,
-                      globalCovidHistory["recovered"][
-                        globalCovidHistory["recovered"].length - 1
-                      ].reports
-                    ),
-                    3
-                  )}
-                </StyledLargeCardMidLineSubTitle>
-              </div>
               <div
                 className="single-slide"
                 data-order="0"
@@ -274,8 +280,31 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
-                  position: "absolute",
-                  transition: "2s ease",
+                }}
+              >
+                <StyledLargeCardMidLineTitle>
+                  Deaths
+                </StyledLargeCardMidLineTitle>
+                <StyledLargeCardMidLineSubTitle>
+                  {abbreviateNumber(
+                    difference(
+                      globalCovidHistory["deaths"][0].reports ?? 0,
+                      globalCovidHistory["deaths"][
+                        globalCovidHistory["deaths"].length - 1
+                      ].reports
+                    ),
+                    3
+                  )}
+                </StyledLargeCardMidLineSubTitle>
+              </div>
+              <div
+                className="single-slide"
+                data-order="1"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  textAlign: "center",
                 }}
               >
                 <StyledLargeCardMidLineTitle>Cases</StyledLargeCardMidLineTitle>
@@ -299,19 +328,17 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
-                  position: "absolute",
-                  transition: "2s ease",
                 }}
               >
                 <StyledLargeCardMidLineTitle>
-                  {props.nextLabel}
+                  Recovered
                 </StyledLargeCardMidLineTitle>
                 <StyledLargeCardMidLineSubTitle>
                   {abbreviateNumber(
                     difference(
-                      globalCovidHistory["deaths"][0].reports ?? 0,
-                      globalCovidHistory["deaths"][
-                        globalCovidHistory["deaths"].length - 1
+                      globalCovidHistory["recovered"][0].reports ?? 0,
+                      globalCovidHistory["recovered"][
+                        globalCovidHistory["recovered"].length - 1
                       ].reports
                     ),
                     3
@@ -319,18 +346,22 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                 </StyledLargeCardMidLineSubTitle>
               </div>
             </div>
-            {/* <button
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              props.nextButton(props.currentIndex);
-              changeOrder("forward");
-            }}
-          >
-            Forward
-          </button> */}
+            <button
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                changeOrder(
+                  "forward",
+                  updateActiveCaseType,
+                  updateNextCaseType,
+                  updatePreviousCaseType
+                );
+              }}
+            >
+              Forward
+            </button>
           </StyledLargeCardMidLine>
           <StyledLargeCardBottomLine>
             <StyledLargeCardBottomLineContent>
-              <Calendar /> Last {props.daysToUse} days
+              <Calendar /> {daysToUse.label}
             </StyledLargeCardBottomLineContent>
           </StyledLargeCardBottomLine>
         </StyledLargeCardInner>
