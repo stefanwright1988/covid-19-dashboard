@@ -1,14 +1,39 @@
 import React from "react";
+import styled from "styled-components";
 import { percentage } from "../../helpers/number";
 import { CovidInfo } from "../../interfaces/covidInterface";
 
 interface CountriesTableProps {
   tableData: CovidInfo[];
 }
+const FullWidthTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    background-color: #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  tr {
+    &:nth-child(even) {
+      background: mediumseagreen;
+    }
+
+    &:nth-child(odd) {
+      background: royalblue;
+    }
+  }
+`;
+const FullWidthTableContainer = styled.div`
+  height: 400px;
+  overflow: auto;
+  width: 100%;
+`;
 export const CountriesTable = (props: CountriesTableProps) => {
   return (
-    <div>
-      <table>
+    <FullWidthTableContainer>
+      <FullWidthTable>
         <thead>
           <th>Country</th>
           <th>Cases</th>
@@ -34,7 +59,7 @@ export const CountriesTable = (props: CountriesTableProps) => {
             )
           )}
         </tbody>
-      </table>
-    </div>
+      </FullWidthTable>
+    </FullWidthTableContainer>
   );
 };
