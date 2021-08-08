@@ -13,7 +13,6 @@ import Loader from "../../Loader/Loader";
 import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
 import { toSentenceCase } from "../../../helpers/strings";
-import { CovidHistory } from "../../../interfaces/covidInterface";
 import "./LargeCardStyled.css";
 interface StyledLargeCardTopLineProps {
   type?: string;

@@ -15,6 +15,7 @@ const StyledContent = styled.main`
   margin-right: auto;
   padding-left: 30px;
   padding-right: 30px;
+  background-color: #2b2b3f;
 
   display: flex;
   justify-content: center;

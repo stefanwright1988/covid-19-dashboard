@@ -17,8 +17,8 @@ const TableContainer = styled.div`
   max-height: 400px;
   margin: 30px 12.5px !important;
   padding: 20px 15px;
-  box-shadow: 5px 5px 15px 5px #9f9f9f;
-  border-radius: 50px;
+  box-shadow: 5px 5px 5px 5px #9f9f9f;
+  border-radius: 10px;
 `;
 
 const Table = styled.div`
