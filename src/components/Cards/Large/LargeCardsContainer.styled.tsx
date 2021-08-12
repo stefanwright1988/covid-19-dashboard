@@ -10,8 +10,9 @@ const LargeStyledCardsContainer = styled.div`
   height: 100%;
   margin: 10px 12.5px !important;
   padding: 0 15px;
-  box-shadow: 5px 5px 5px 5px #9f9f9f;
+  background-color: #555666;
   border-radius: 10px;
+  color: #000119;
   > h1 {
     text-align: center;
     width: 100%;

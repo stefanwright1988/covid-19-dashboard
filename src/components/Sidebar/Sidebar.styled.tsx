@@ -13,12 +13,12 @@ const SidebarContainer = styled.div`
     grid-area: sidebar;
     display: flex;
   } */
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   line-height: 1.5em;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+  
+  
+  
   color: rgba(0, 0, 0, 0.87);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   background-color: #121;

@@ -6,7 +6,7 @@ const StyledHeader = styled.header`
   top: 0;
   left: auto;
   right: 0;
-  color: #555555;
+  color: #d5d5d9;
   width: 100%;
   border: 0;
   display: flex;

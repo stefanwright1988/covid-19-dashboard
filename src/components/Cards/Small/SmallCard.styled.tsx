@@ -7,20 +7,15 @@ import { HeadSideMask } from "@styled-icons/fa-solid";
 import Loader from "../../Loader/Loader";
 import { toSentenceCase } from "../../../helpers/strings";
 
-const StyledSmallCardContainer = styled.div`
-  color: #3c4858;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+const StyledSmallCardContainer = styled.div`    
   margin: 0;
   box-sizing: border-box;
   flex-grow: 0;
   max-width: 50%;
   flex-basis: 50%;
   padding: 0 15px !important;
+  display:flex;
+  flex-direction:column;
 `;
 
 const StyledSmallCardInner = styled.div`
@@ -31,7 +26,7 @@ const StyledSmallCardInner = styled.div`
   font-size: 0.875rem;
   min-width: 0;
   word-wrap: break-word;
-  background: #fff;
+  background: #80808c;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   margin-top: 30px;
   border-radius: 6px;
@@ -81,16 +76,16 @@ const handleStyledSmallCardIconContainerBackgroundColor = (type?: string) => {
   }
 };
 const StyledSmallCardIconContainer = styled.div<StyledSmallCardIconContainerProps>`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   line-height: 1.5em;
   font-size: 0.875rem;
   word-wrap: break-word;
-  color: #fff;
+  color: #d5d5d9;
   text-align: right;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+  
+  
+  
   background: linear-gradient(
     60deg,
     ${({ type }) => handleStyledSmallCardIconContainerBackgroundColor(type)}
@@ -105,9 +100,9 @@ const StyledSmallCardIconContainer = styled.div<StyledSmallCardIconContainerProp
 `;
 
 const StyledSmallCardIconSpan = styled.span`
-  color: #fff;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
+  color: #d5d5d9;
+  
+  
   font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
@@ -116,7 +111,7 @@ const StyledSmallCardIconSpan = styled.span`
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -webkit-font-smoothing: antialiased;
+  
   flex-shrink: 0;
   user-select: none;
   width: 56px;
@@ -129,15 +124,14 @@ const StyledSmallCardIconSpan = styled.span`
 `;
 
 const StyledSmallCardTopLineTitle = styled.p`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   line-height: 1.5em;
   word-wrap: break-word;
   text-align: right;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  color: #999;
+  
+  
+  
   margin: 0;
   font-size: 14px;
   margin-top: 0;
@@ -147,26 +141,24 @@ const StyledSmallCardTopLineTitle = styled.p`
 const StyledSmallCardTopLineSubTitle = styled.h3`
   word-wrap: break-word;
   text-align: right;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+  
+  
+  
   font-size: 1.825em;
   line-height: 1.5em;
-  color: #3c4858;
   min-height: auto;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   text-decoration: none;
   margin: 0 !important;
 `;
 const StyledSmallCardBottomLineContent = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  color: #999;
+  
+  
+  
   display: inline-flex;
   font-size: 12px;
   line-height: 18px;

@@ -17,18 +17,21 @@ const TableContainer = styled.div`
   max-height: 400px;
   margin: 30px 12.5px !important;
   padding: 20px 15px;
-  box-shadow: 5px 5px 5px 5px #9f9f9f;
   border-radius: 10px;
+  background-color: #555666;
+  color: #000119;
 `;
 
 const Table = styled.div`
   width: 80%;
-  overflow-y: scroll;
+  overflow-y: scroll;  
+  background: #80808c;
   div {
     box-sizing: border-box;
   }
   .header {
-    background-color: blue;
+    background-color: #2b2b3f;
+    color: #d5d5d9;
     position: sticky;
     top: 0;
   }
@@ -37,7 +40,7 @@ const Table = styled.div`
 const TableRow = styled.div`
   display: flex;
   flex-flow: row wrap;
-  border-left: solid 1px #d9d9d9;
+  border-left: solid 1px #555666;
   transition: 0.5s;
 `;
 
@@ -45,8 +48,8 @@ const TableCell = styled.div`
   width: calc(100% / 6);
   text-align: center;
   padding: 0.5em 0.5em;
-  border-right: solid 1px #d9d9d9;
-  border-bottom: solid 1px #d9d9d9; ;
+  border-right: solid 1px #555666;
+  border-bottom: solid 1px #555666; ;
 `;
 
 export const CountriesTable = (props: CountriesTableProps) => {

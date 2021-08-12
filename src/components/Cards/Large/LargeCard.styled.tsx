@@ -32,13 +32,12 @@ const handleStyledLargeCardTopLineBackgroundColor = (type?: string) => {
   }
 };
 const StyledLargeCardContainer = styled.div`
-  color: #3c4858;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   line-height: 1.5em;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+  
+  
+  
   margin: 0;
   box-sizing: border-box;
   display: flex;
@@ -54,8 +53,7 @@ const StyledLargeCardInner = styled.div`
   font-size: 0.875rem;
   min-width: 0;
   word-wrap: break-word;
-  background: #fff;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  background: #80808c;
   margin-top: 30px;
   border-radius: 6px;
   margin-bottom: 30px;
@@ -76,15 +74,14 @@ const StyledLargeCardTopLine = styled.div<StyledLargeCardTopLineProps>`
   height: 200px;
 `;
 const StyledLargeCardMidLine = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   line-height: 1.5em;
-  color: rgba(0, 0, 0, 0.87);
   font-size: 0.875rem;
   word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+  
+  
+  
   padding: 0.9375rem 20px;
   position: relative;
   display: flex;
@@ -96,15 +93,14 @@ const StyledLargeCardMidLine = styled.div`
   gap: 0px 0px;
 `;
 const StyledLargeCardMidLineTitle = styled.p`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   line-height: 1.5em;
   word-wrap: break-word;
   text-align: right;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  color: #999;
+  
+  
+  
   margin: 0;
   font-size: 14px;
   margin-top: 0;
@@ -114,14 +110,13 @@ const StyledLargeCardMidLineTitle = styled.p`
 const StyledLargeCardMidLineSubTitle = styled.h3`
   word-wrap: break-word;
   text-align: right;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
+  
+  
+  
   font-size: 1.825em;
   line-height: 1.5em;
-  color: #3c4858;
   min-height: auto;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   text-decoration: none;
   margin: 0 !important;
@@ -138,13 +133,12 @@ const StyledLargeCardBottomLine = styled.div`
   border-top: 1px solid #eee;
 `;
 const StyledLargeCardBottomLineContent = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
   font-weight: 300;
   word-wrap: break-word;
-  -webkit-tap-highlight-color: transparent;
-  letter-spacing: normal !important;
-  -webkit-font-smoothing: antialiased;
-  color: #999;
+  
+  
+  
   display: inline-flex;
   font-size: 12px;
   line-height: 18px;
@@ -237,7 +231,7 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
           <StyledLargeCardTopLine type={toSentenceCase(activeCaseType)}>
             <ResponsiveContainer>
               <AreaChart data={globalCovidHistory[activeCaseType]}>
-                <XAxis dataKey="date" stroke="#fff" />
+                <XAxis dataKey="date" stroke="#d5d5d9" />
                 <YAxis
                   type="number"
                   domain={[
@@ -247,10 +241,10 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
                   }}
-                  stroke="#fff"
+                  stroke="#d5d5d9"
                 />
                 <CartesianGrid />
-                <Area type="monotone" dataKey="reports" stroke="#fff" />
+                <Area type="monotone" dataKey="reports" stroke="#d5d5d9" />
               </AreaChart>
             </ResponsiveContainer>
           </StyledLargeCardTopLine>

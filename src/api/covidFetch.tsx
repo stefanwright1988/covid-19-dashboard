@@ -6,6 +6,7 @@ const BASE_URL = `${HOST_NAME}${HOST_VERSION}/covid-19`;
 const ALL_URL = `${BASE_URL}/all`;
 const HISTORICAL_URL = `${BASE_URL}/historical`;
 const COUNTRIES_URL = `${BASE_URL}/countries`;
+
 const getCountries = async () => {
   try {
     const response = await fetch(`${COUNTRIES_URL}`);
@@ -37,6 +38,11 @@ const getCovidHistory = async (countryCode: string, days: number) => {
       countryCode.toLowerCase() === "worldwide" || countryCode === ""
         ? await fetch(`${HISTORICAL_URL}/all?lastdays=${days}`)
         : await fetch(`${HISTORICAL_URL}/${countryCode}?lastdays=${days}`);
+
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
     let data = await response.json();
     data =
       countryCode.toLowerCase() === "worldwide" || countryCode === ""
