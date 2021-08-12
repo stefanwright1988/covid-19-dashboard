@@ -5,7 +5,7 @@ import SimpleMap from "../Map/Map";
 import { CountriesTable } from "../Tables/tables";
 import StyledContent from "./Content.styled";
 import SmallCardsContainer from "../Cards/Small/SmallCardsContainer";
-import LargeCardsContainer from "../Cards/Large/LargeCardsContainer";
+import HistoryCardsContainer from "../Cards/History/HistoryCardsContainer";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
@@ -15,14 +15,20 @@ const Content = () => {
     country,
     daysToUse,
     updateCovidInfo,
+    updateCovidInfoError,
     updateGlobalCovidHistory,
+    updateGlobalCovidHistoryError,
     tableData,
   } = useContext(AppContext);
 
   useEffect(() => {
     updateLoading(true);
     const getCovidHistoryByCountry = async () => {
-      const response = await getCovidHistory(country.value, daysToUse.value);
+      const response = await getCovidHistory(
+        country.value,
+        daysToUse.value,
+        updateGlobalCovidHistoryError
+      );
       updateGlobalCovidHistory(response);
       updateLoading(false);
     };
@@ -31,7 +37,7 @@ const Content = () => {
 
   useEffect(() => {
     const getCovidStats = async () => {
-      const response = await getCovidInfo(country.value);
+      const response = await getCovidInfo(country.value, updateCovidInfoError);
       updateCovidInfo(response);
       updateLoading(false);
     };
@@ -41,7 +47,7 @@ const Content = () => {
     <StyledContent>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <SmallCardsContainer />
-        <LargeCardsContainer />
+        <HistoryCardsContainer />
       </div>
       <CountriesTable tableData={tableData} />
       <SimpleMap geoData={(props: any) => props.geoData} />

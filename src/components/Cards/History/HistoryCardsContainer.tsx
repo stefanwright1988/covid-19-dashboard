@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import LargeStyledCardsContainer from "../Large/LargeCardsContainer.styled";
-import LargeCard from "../Large/LargeCard";
+import LargeStyledCardsContainer from "./HistoryCardsContainer.styled";
+import HistoryCard from "./HistoryCard";
 import { AppContext } from "../../../context/AppContext";
 import { toSentenceCase } from "../../../helpers/strings";
 
-const LargeCardsContainer = () => {
+const HistoryCardsContainer = () => {
   const { country } = useContext(AppContext);
   return (
     <>
@@ -13,11 +13,11 @@ const LargeCardsContainer = () => {
           {toSentenceCase(country.label)} - Trend data
         </h1>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <LargeCard />
+          <HistoryCard />
         </div>
       </LargeStyledCardsContainer>
     </>
   );
 };
 
-export default LargeCardsContainer;
+export default HistoryCardsContainer;

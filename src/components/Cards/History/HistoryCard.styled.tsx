@@ -13,11 +13,11 @@ import Loader from "../../Loader/Loader";
 import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
 import { toSentenceCase } from "../../../helpers/strings";
-import "./LargeCardStyled.css";
-interface StyledLargeCardTopLineProps {
+import "./HistoryCardStyled.css";
+interface StyledHistoryCardTopLineProps {
   type?: string;
 }
-const handleStyledLargeCardTopLineBackgroundColor = (type?: string) => {
+const handleStyledHistoryCardTopLineBackgroundColor = (type?: string) => {
   switch (type) {
     case "Cases":
       return "#FF0000,	#8B0000";
@@ -31,13 +31,10 @@ const handleStyledLargeCardTopLineBackgroundColor = (type?: string) => {
       return "#03a9f3";
   }
 };
-const StyledLargeCardContainer = styled.div`
-  
+const StyledHistoryCardContainer = styled.div`
   font-weight: 300;
   line-height: 1.5em;
-  
-  
-  
+
   margin: 0;
   box-sizing: border-box;
   display: flex;
@@ -45,7 +42,7 @@ const StyledLargeCardContainer = styled.div`
   flex-basis: 50%;
   padding: 0 15px !important;
 `;
-const StyledLargeCardInner = styled.div`
+const StyledHistoryCardInner = styled.div`
   width: 100%;
   border: 0;
   display: flex;
@@ -59,12 +56,12 @@ const StyledLargeCardInner = styled.div`
   margin-bottom: 30px;
   flex-direction: column;
 `;
-const StyledLargeCardTopLine = styled.div<StyledLargeCardTopLineProps>`
+const StyledHistoryCardTopLine = styled.div<StyledHistoryCardTopLineProps>`
   margin: 0 15px;
   position: relative;
   background: linear-gradient(
     60deg,
-    ${({ type }) => handleStyledLargeCardTopLineBackgroundColor(type)}
+    ${({ type }) => handleStyledHistoryCardTopLineBackgroundColor(type)}
   );
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(76, 175, 80, 0.4);
@@ -73,15 +70,12 @@ const StyledLargeCardTopLine = styled.div<StyledLargeCardTopLineProps>`
   border-radius: 3px;
   height: 200px;
 `;
-const StyledLargeCardMidLine = styled.div`
-  
+const StyledHistoryCardMidLine = styled.div`
   font-weight: 300;
   line-height: 1.5em;
   font-size: 0.875rem;
   word-wrap: break-word;
-  
-  
-  
+
   padding: 0.9375rem 20px;
   position: relative;
   display: flex;
@@ -92,36 +86,31 @@ const StyledLargeCardMidLine = styled.div`
   grid-template-rows: 1fr;
   gap: 0px 0px;
 `;
-const StyledLargeCardMidLineTitle = styled.p`
-  
+const StyledHistoryCardMidLineTitle = styled.p`
   font-weight: 300;
   line-height: 1.5em;
   word-wrap: break-word;
   text-align: right;
-  
-  
-  
+
   margin: 0;
   font-size: 14px;
   margin-top: 0;
   padding-top: 10px;
   margin-bottom: 0;
 `;
-const StyledLargeCardMidLineSubTitle = styled.h3`
+const StyledHistoryCardMidLineSubTitle = styled.h3`
   word-wrap: break-word;
   text-align: right;
-  
-  
-  
+
   font-size: 1.825em;
   line-height: 1.5em;
   min-height: auto;
-  
+
   font-weight: 300;
   text-decoration: none;
   margin: 0 !important;
 `;
-const StyledLargeCardBottomLine = styled.div`
+const StyledHistoryCardBottomLine = styled.div`
   margin: 0 15px 10px;
   display: flex;
   padding: 0;
@@ -132,13 +121,10 @@ const StyledLargeCardBottomLine = styled.div`
   background-color: transparent;
   border-top: 1px solid #eee;
 `;
-const StyledLargeCardBottomLineContent = styled.div`
-  
+const StyledHistoryCardBottomLineContent = styled.div`
   font-weight: 300;
   word-wrap: break-word;
-  
-  
-  
+
   display: inline-flex;
   font-size: 12px;
   line-height: 18px;
@@ -209,10 +195,10 @@ const changeOrder = (
       break;
   }
 };
-interface StyledLargeCardProps {
+interface StyledHistoryCardProps {
   isBlank: boolean;
 }
-const StyledLargeCard = (props: StyledLargeCardProps) => {
+const StyledHistoryCard = (props: StyledHistoryCardProps) => {
   const {
     loading,
     globalCovidHistory,
@@ -223,12 +209,12 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
     updatePreviousCaseType,
   } = useContext(AppContext);
   return (
-    <StyledLargeCardContainer>
+    <StyledHistoryCardContainer>
       {loading || props.isBlank ? (
         <Loader />
       ) : (
-        <StyledLargeCardInner>
-          <StyledLargeCardTopLine type={toSentenceCase(activeCaseType)}>
+        <StyledHistoryCardInner>
+          <StyledHistoryCardTopLine type={toSentenceCase(activeCaseType)}>
             <ResponsiveContainer>
               <AreaChart data={globalCovidHistory[activeCaseType]}>
                 <XAxis dataKey="date" stroke="#d5d5d9" />
@@ -247,8 +233,8 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                 <Area type="monotone" dataKey="reports" stroke="#d5d5d9" />
               </AreaChart>
             </ResponsiveContainer>
-          </StyledLargeCardTopLine>
-          <StyledLargeCardMidLine>
+          </StyledHistoryCardTopLine>
+          <StyledHistoryCardMidLine>
             <button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 changeOrder(
@@ -275,10 +261,10 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   textAlign: "center",
                 }}
               >
-                <StyledLargeCardMidLineTitle>
+                <StyledHistoryCardMidLineTitle>
                   Deaths
-                </StyledLargeCardMidLineTitle>
-                <StyledLargeCardMidLineSubTitle>
+                </StyledHistoryCardMidLineTitle>
+                <StyledHistoryCardMidLineSubTitle>
                   {abbreviateNumber(
                     difference(
                       globalCovidHistory["deaths"][0].reports ?? 0,
@@ -288,7 +274,7 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                     ),
                     3
                   )}
-                </StyledLargeCardMidLineSubTitle>
+                </StyledHistoryCardMidLineSubTitle>
               </div>
               <div
                 className="single-slide"
@@ -300,8 +286,10 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   textAlign: "center",
                 }}
               >
-                <StyledLargeCardMidLineTitle>Cases</StyledLargeCardMidLineTitle>
-                <StyledLargeCardMidLineSubTitle>
+                <StyledHistoryCardMidLineTitle>
+                  Cases
+                </StyledHistoryCardMidLineTitle>
+                <StyledHistoryCardMidLineSubTitle>
                   {abbreviateNumber(
                     difference(
                       globalCovidHistory["cases"][0].reports ?? 0,
@@ -311,7 +299,7 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                     ),
                     3
                   )}
-                </StyledLargeCardMidLineSubTitle>
+                </StyledHistoryCardMidLineSubTitle>
               </div>
               <div
                 className="single-slide"
@@ -323,10 +311,10 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                   textAlign: "center",
                 }}
               >
-                <StyledLargeCardMidLineTitle>
+                <StyledHistoryCardMidLineTitle>
                   Recovered
-                </StyledLargeCardMidLineTitle>
-                <StyledLargeCardMidLineSubTitle>
+                </StyledHistoryCardMidLineTitle>
+                <StyledHistoryCardMidLineSubTitle>
                   {abbreviateNumber(
                     difference(
                       globalCovidHistory["recovered"][0].reports ?? 0,
@@ -336,7 +324,7 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
                     ),
                     3
                   )}
-                </StyledLargeCardMidLineSubTitle>
+                </StyledHistoryCardMidLineSubTitle>
               </div>
             </div>
             <button
@@ -351,15 +339,15 @@ const StyledLargeCard = (props: StyledLargeCardProps) => {
             >
               Forward
             </button>
-          </StyledLargeCardMidLine>
-          <StyledLargeCardBottomLine>
-            <StyledLargeCardBottomLineContent>
+          </StyledHistoryCardMidLine>
+          <StyledHistoryCardBottomLine>
+            <StyledHistoryCardBottomLineContent>
               <Calendar /> {daysToUse.label}
-            </StyledLargeCardBottomLineContent>
-          </StyledLargeCardBottomLine>
-        </StyledLargeCardInner>
+            </StyledHistoryCardBottomLineContent>
+          </StyledHistoryCardBottomLine>
+        </StyledHistoryCardInner>
       )}
-    </StyledLargeCardContainer>
+    </StyledHistoryCardContainer>
   );
 };
-export default StyledLargeCard;
+export default StyledHistoryCard;

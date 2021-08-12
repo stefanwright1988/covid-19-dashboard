@@ -1,4 +1,5 @@
 import { CovidHistory, CovidHistoryCase } from "../interfaces/covidInterface";
+import { AppContext } from "../context/AppContext";
 
 const HOST_VERSION = "v3";
 const HOST_NAME = `https://disease.sh/`;
@@ -18,28 +19,40 @@ const getCountries = async () => {
   }
 };
 
-const getCovidInfo = async (countryCode: string) => {
+const getCovidInfo = async (countryCode: string, setErrorStatus: any) => {
   try {
+    setErrorStatus(false);
     const response =
       countryCode.toLowerCase() === "worldwide"
         ? await fetch(`${ALL_URL}`)
         : await fetch(`${COUNTRIES_URL}/${countryCode}`);
+
+    if (!response.ok) {
+      setErrorStatus(true);
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
     const data = await response.json();
     return data;
   } catch (err) {
     console.log(err);
-    return [];
   }
 };
 
-const getCovidHistory = async (countryCode: string, days: number) => {
+const getCovidHistory = async (
+  countryCode: string,
+  days: number,
+  setErrorStatus: any
+) => {
   try {
+    setErrorStatus(false);
     const response =
       countryCode.toLowerCase() === "worldwide" || countryCode === ""
         ? await fetch(`${HISTORICAL_URL}/all?lastdays=${days}`)
         : await fetch(`${HISTORICAL_URL}/${countryCode}?lastdays=${days}`);
 
     if (!response.ok) {
+      setErrorStatus(true);
       const message = `An error has occured: ${response.status}`;
       throw new Error(message);
     }
@@ -51,7 +64,6 @@ const getCovidHistory = async (countryCode: string, days: number) => {
     return data;
   } catch (err) {
     console.log(err);
-    return [];
   }
 };
 function transposeWorldwideResponse(data: any) {

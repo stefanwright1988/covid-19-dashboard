@@ -1,10 +1,10 @@
 import { LineChart, Line } from "recharts";
 
-interface LargeCardProps {
+interface HistoryCardProps {
   cardData: any;
 }
 
-const renderLineChart = (props: LargeCardProps) => {
+const renderLineChart = (props: HistoryCardProps) => {
   <LineChart width={400} height={400} data={props.cardData}>
     <Line type="monotone" dataKey="reports" stroke="#8884d8" />
   </LineChart>;
