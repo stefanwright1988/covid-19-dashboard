@@ -37,8 +37,9 @@ const Content = () => {
 
   useEffect(() => {
     const getCovidStats = async () => {
-      const response = await getCovidInfo(country.value, updateCovidInfoError);
-      updateCovidInfo(response);
+      getCovidInfo(country.value, updateCovidInfoError, updateCovidInfo);
+      //console.log(response);
+      //updateCovidInfo(response);
       updateLoading(false);
     };
     getCovidStats();

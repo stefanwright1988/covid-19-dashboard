@@ -15,7 +15,6 @@ const HistoryCard = () => {
   ) {
     return <StyledHistoryCard isBlank={true} />;
   }
-  console.log(activeCaseType);
   return <StyledHistoryCard isBlank={false} />;
 };
 

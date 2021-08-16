@@ -1,5 +1,6 @@
 import { CovidHistory, CovidHistoryCase } from "../interfaces/covidInterface";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
 
 const HOST_VERSION = "v3";
 const HOST_NAME = `https://disease.sh/`;
@@ -19,8 +20,12 @@ const getCountries = async () => {
   }
 };
 
-const getCovidInfo = async (countryCode: string, setErrorStatus: any) => {
-  try {
+const getCovidInfo = async (
+  countryCode: string,
+  setErrorStatus: any,
+  setState: any
+) => {
+  /*   try {
     setErrorStatus(false);
     const response =
       countryCode.toLowerCase() === "worldwide"
@@ -36,6 +41,25 @@ const getCovidInfo = async (countryCode: string, setErrorStatus: any) => {
     return data;
   } catch (err) {
     console.log(err);
+  } */
+  if (countryCode.toLowerCase() === "worldwide") {
+    axios.get(`${ALL_URL}`).then(
+      (res) => {
+        setState(res.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  } else {
+    axios.get(`${COUNTRIES_URL}/${countryCode}`).then(
+      (res) => {
+        setState(res.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 };
 
