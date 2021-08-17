@@ -23,26 +23,23 @@ const Content = () => {
 
   useEffect(() => {
     updateLoading(true);
-    const getCovidHistoryByCountry = async () => {
-      const response = await getCovidHistory(
-        country.value,
-        daysToUse.value,
-        updateGlobalCovidHistoryError
-      );
-      updateGlobalCovidHistory(response);
-      updateLoading(false);
-    };
-    getCovidHistoryByCountry();
+    getCovidHistory(
+      country.value,
+      daysToUse.value,
+      updateGlobalCovidHistoryError,
+      updateGlobalCovidHistory,
+      updateLoading
+    );
   }, [country, daysToUse]);
 
   useEffect(() => {
-    const getCovidStats = async () => {
-      getCovidInfo(country.value, updateCovidInfoError, updateCovidInfo);
-      //console.log(response);
-      //updateCovidInfo(response);
-      updateLoading(false);
-    };
-    getCovidStats();
+    updateLoading(true);
+    getCovidInfo(
+      country.value,
+      updateCovidInfoError,
+      updateCovidInfo,
+      updateLoading
+    );
   }, [country]);
   return (
     <StyledContent>
