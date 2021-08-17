@@ -1,5 +1,4 @@
 import { CovidHistory, CovidHistoryCase } from "../interfaces/covidInterface";
-import { AppContext } from "../context/AppContext";
 import axios from "axios";
 
 const HOST_VERSION = "v3";
@@ -23,73 +22,52 @@ const getCountries = async () => {
 const getCovidInfo = async (
   countryCode: string,
   setErrorStatus: any,
-  setState: any
+  setCovidHistory: any,
+  setLoading: any
 ) => {
-  /*   try {
-    setErrorStatus(false);
-    const response =
-      countryCode.toLowerCase() === "worldwide"
-        ? await fetch(`${ALL_URL}`)
-        : await fetch(`${COUNTRIES_URL}/${countryCode}`);
-
-    if (!response.ok) {
+  const getURL =
+    countryCode.toLowerCase() === "worldwide"
+      ? `${ALL_URL}`
+      : `${COUNTRIES_URL}/${countryCode}`;
+  axios.get(`${getURL}`).then(
+    (res) => {
+      setCovidHistory(res.data);
+      setLoading(false);
+    },
+    (error) => {
       setErrorStatus(true);
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
+      console.log(error.response.data.message);
     }
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-  } */
-  if (countryCode.toLowerCase() === "worldwide") {
-    axios.get(`${ALL_URL}`).then(
-      (res) => {
-        setState(res.data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  } else {
-    axios.get(`${COUNTRIES_URL}/${countryCode}`).then(
-      (res) => {
-        setState(res.data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  );
 };
 
 const getCovidHistory = async (
   countryCode: string,
   days: number,
-  setErrorStatus: any
+  setErrorStatus: any,
+  setCovidHistory: any,
+  setLoading: any
 ) => {
-  try {
-    setErrorStatus(false);
-    const response =
-      countryCode.toLowerCase() === "worldwide" || countryCode === ""
-        ? await fetch(`${HISTORICAL_URL}/all?lastdays=${days}`)
-        : await fetch(`${HISTORICAL_URL}/${countryCode}?lastdays=${days}`);
-
-    if (!response.ok) {
+  const getURL =
+    countryCode.toLowerCase() === "worldwide" || countryCode === ""
+      ? `${HISTORICAL_URL}/all?lastdays=${days}`
+      : `${HISTORICAL_URL}/${countryCode}?lastdays=${days}`;
+  axios.get(`${getURL}`).then(
+    (res) => {
+      const data =
+        countryCode.toLowerCase() === "worldwide" || countryCode === ""
+          ? transposeWorldwideResponse(res.data)
+          : transposeCountryResponse(res.data.timeline);
+      setCovidHistory(data);
+      setLoading(false);
+    },
+    (error) => {
       setErrorStatus(true);
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
+      console.log(error.response.data.message);
     }
-    let data = await response.json();
-    data =
-      countryCode.toLowerCase() === "worldwide" || countryCode === ""
-        ? transposeWorldwideResponse(data)
-        : transposeCountryResponse(data.timeline);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  );
 };
+
 function transposeWorldwideResponse(data: any) {
   var propertyNames = Object.getOwnPropertyNames(data);
   var newData: CovidHistory = {
