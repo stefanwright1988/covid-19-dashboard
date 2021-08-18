@@ -10,8 +10,8 @@ const SmallCardsContainer = () => {
     <>
       <SmallStyledCardsContainer>
         <h1>{toSentenceCase(country.label)} - Stats to date</h1>
-        {caseTypes.map((type) => {
-          return <SmallCard type={type} />;
+        {caseTypes.map((type, index) => {
+          return <SmallCard type={type} key={index} />;
         })}
       </SmallStyledCardsContainer>
     </>

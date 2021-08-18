@@ -40,7 +40,7 @@ const Content = () => {
       updateCovidInfo,
       updateLoading
     );
-  }, [country]);
+  }, []);
   return (
     <StyledContent>
       <div style={{ display: "flex", flexDirection: "row" }}>
