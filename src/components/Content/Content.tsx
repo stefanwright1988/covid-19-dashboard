@@ -16,8 +16,10 @@ const Content = () => {
     daysToUse,
     updateCovidInfo,
     updateCovidInfoError,
+    updateCovidInfoErrorText,
     updateGlobalCovidHistory,
     updateGlobalCovidHistoryError,
+    updateGlobalCovidHistoryErrorText,
     tableData,
   } = useContext(AppContext);
 
@@ -27,6 +29,7 @@ const Content = () => {
       country.value,
       daysToUse.value,
       updateGlobalCovidHistoryError,
+      updateGlobalCovidHistoryErrorText,
       updateGlobalCovidHistory,
       updateLoading
     );
@@ -37,10 +40,11 @@ const Content = () => {
     getCovidInfo(
       country.value,
       updateCovidInfoError,
+      updateCovidInfoErrorText,
       updateCovidInfo,
       updateLoading
     );
-  }, []);
+  }, [country]);
   return (
     <StyledContent>
       <div style={{ display: "flex", flexDirection: "row" }}>

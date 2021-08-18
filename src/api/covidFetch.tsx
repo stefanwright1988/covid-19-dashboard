@@ -22,9 +22,12 @@ const getCountries = async () => {
 const getCovidInfo = async (
   countryCode: string,
   setErrorStatus: any,
+  setErrorText: any,
   setCovidHistory: any,
   setLoading: any
 ) => {
+  setErrorStatus(false);
+  setErrorText("");
   const getURL =
     countryCode.toLowerCase() === "worldwide"
       ? `${ALL_URL}`
@@ -36,7 +39,9 @@ const getCovidInfo = async (
     },
     (error) => {
       setErrorStatus(true);
+      setErrorText(error.response.data.message);
       console.log(error.response.data.message);
+      setLoading(false);
     }
   );
 };
@@ -45,9 +50,12 @@ const getCovidHistory = async (
   countryCode: string,
   days: number,
   setErrorStatus: any,
+  setErrorText: any,
   setCovidHistory: any,
   setLoading: any
 ) => {
+  setErrorStatus(false);
+  setErrorText("");
   const getURL =
     countryCode.toLowerCase() === "worldwide" || countryCode === ""
       ? `${HISTORICAL_URL}/all?lastdays=${days}`
@@ -63,7 +71,9 @@ const getCovidHistory = async (
     },
     (error) => {
       setErrorStatus(true);
+      setErrorText(error.response.data.message);
       console.log(error.response.data.message);
+      setLoading(false);
     }
   );
 };

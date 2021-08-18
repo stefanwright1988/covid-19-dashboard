@@ -15,6 +15,8 @@ type IContext = {
   updateCovidInfo: (value: CovidInfo | undefined) => void;
   covidInfoError: boolean;
   updateCovidInfoError: (value: boolean) => void;
+  covidInfoErrorText: string;
+  updateCovidInfoErrorText: (value: string) => void;
   tableData: CovidInfo[];
   updateTableData: (value: CovidInfo[]) => void;
   mapCountries: CovidInfo[];
@@ -23,6 +25,8 @@ type IContext = {
   updateGlobalCovidHistory: (value: CovidHistory) => void;
   globalCovidHistoryError: boolean;
   updateGlobalCovidHistoryError: (value: boolean) => void;
+  globalCovidHistoryErrorText: string;
+  updateGlobalCovidHistoryErrorText: (value: string) => void;
   mapData: {};
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => void;
   caseTypes: ["cases", "active", "deaths", "recovered"];
@@ -47,6 +51,8 @@ export const AppContext = createContext<IContext>({
   updateCovidInfo: (value: CovidInfo | undefined) => {},
   covidInfoError: false,
   updateCovidInfoError: (value: boolean) => {},
+  covidInfoErrorText: "",
+  updateCovidInfoErrorText: (value: string) => {},
   tableData: [],
   updateTableData: (value: CovidInfo[]) => {},
   mapCountries: [],
@@ -55,6 +61,8 @@ export const AppContext = createContext<IContext>({
   updateGlobalCovidHistory: (value: CovidHistory) => {},
   globalCovidHistoryError: false,
   updateGlobalCovidHistoryError: (value: boolean) => {},
+  globalCovidHistoryErrorText: "",
+  updateGlobalCovidHistoryErrorText: (value: string) => {},
   mapData: {},
   updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
   caseTypes: ["cases", "active", "deaths", "recovered"],
@@ -97,6 +105,10 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateCovidInfoError = (value: boolean) => {
     setCovidInfoError(value);
   };
+  const [covidInfoErrorText, setCovidInfoErrorText] = useState("");
+  const updateCovidInfoErrorText = (value: string) => {
+    setCovidInfoErrorText(value);
+  };
   const [globalCovidHistory, setGlobalCovidHistory] = useState<CovidHistory>({
     active: [],
     cases: [],
@@ -109,6 +121,11 @@ const AppContextProvider: React.FC = ({ children }) => {
   const [globalCovidHistoryError, setGlobalCovidHistoryError] = useState(false);
   const updateGlobalCovidHistoryError = (value: boolean) => {
     setGlobalCovidHistoryError(value);
+  };
+  const [globalCovidHistoryErrorText, setGlobalCovidHistoryErrorText] =
+    useState("");
+  const updateGlobalCovidHistoryErrorText = (value: string) => {
+    setGlobalCovidHistoryErrorText(value);
   };
   const [tableData, setTableData] = useState<CovidInfo[]>([]);
   const updateTableData = (value: CovidInfo[]) => {
@@ -165,10 +182,14 @@ const AppContextProvider: React.FC = ({ children }) => {
         updateCovidInfo,
         covidInfoError,
         updateCovidInfoError,
+        covidInfoErrorText,
+        updateCovidInfoErrorText,
         globalCovidHistory,
         updateGlobalCovidHistory,
         globalCovidHistoryError,
         updateGlobalCovidHistoryError,
+        globalCovidHistoryErrorText,
+        updateGlobalCovidHistoryErrorText,
         tableData,
         updateTableData,
         mapCountries,

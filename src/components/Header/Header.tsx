@@ -37,7 +37,6 @@ export const Header = () => {
       );
       updateTableData(orderedTableData);
       updateMapCountries(response);
-      updateCountry({ label: "Worldwide", value: "worldwide" });
     };
     getAllCountries();
   }, []);
