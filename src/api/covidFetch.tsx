@@ -35,13 +35,13 @@ const getCovidInfo = async (
   axios.get(`${getURL}`).then(
     (res) => {
       setCovidHistory(res.data);
-      setLoading(false);
+      //setLoading(false);
     },
     (error) => {
       setErrorStatus(true);
       setErrorText(error.response.data.message);
       console.log(error.response.data.message);
-      setLoading(false);
+      //setLoading(false);
     }
   );
 };
@@ -67,13 +67,13 @@ const getCovidHistory = async (
           ? transposeWorldwideResponse(res.data)
           : transposeCountryResponse(res.data.timeline);
       setCovidHistory(data);
-      setLoading(false);
+      //setLoading(false);
     },
     (error) => {
       setErrorStatus(true);
       setErrorText(error.response.data.message);
       console.log(error.response.data.message);
-      setLoading(false);
+      //setLoading(false);
     }
   );
 };

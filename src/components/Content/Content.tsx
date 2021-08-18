@@ -33,10 +33,6 @@ const Content = () => {
       updateGlobalCovidHistory,
       updateLoading
     );
-  }, [country, daysToUse]);
-
-  useEffect(() => {
-    updateLoading(true);
     getCovidInfo(
       country.value,
       updateCovidInfoError,
@@ -44,7 +40,9 @@ const Content = () => {
       updateCovidInfo,
       updateLoading
     );
-  }, [country]);
+    updateLoading(false);
+  }, [country, daysToUse]);
+
   return (
     <StyledContent>
       <div style={{ display: "flex", flexDirection: "row" }}>

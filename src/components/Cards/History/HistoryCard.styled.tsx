@@ -14,6 +14,7 @@ import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
 import { toSentenceCase } from "../../../helpers/strings";
 import "./HistoryCardStyled.css";
+import _ from "lodash";
 interface StyledHistoryCardTopLineProps {
   type?: string;
 }
@@ -221,8 +222,11 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 <YAxis
                   type="number"
                   domain={[
-                    globalCovidHistory[activeCaseType][0].reports,
-                    "auto",
+                    _.ceil(
+                      globalCovidHistory[activeCaseType][0].reports + 5,
+                      1
+                    ),
+                    _.floor(globalCovidHistory[activeCaseType][0].reports, -5),
                   ]}
                   tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
