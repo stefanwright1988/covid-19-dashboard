@@ -57,3 +57,32 @@ export const roundDown = (number: number) => {
   }
   return Math.floor(number / tensHundredsThousands) * tensHundredsThousands;
 };
+export const roundUp = (number: number) => {
+  let tensHundredsThousands;
+  const numLength = number.toString().length;
+  switch (numLength) {
+    case 1:
+      tensHundredsThousands = 1e1;
+      break;
+    case 2:
+    case 3:
+      tensHundredsThousands = 1e2;
+      break;
+    case 4:
+    case 5:
+      tensHundredsThousands = 1e3;
+      break;
+    case 6:
+    case 7:
+      tensHundredsThousands = 1e3;
+      break;
+    case 8:
+    case 9:
+      tensHundredsThousands = 1e3;
+      break;
+    default:
+      tensHundredsThousands = 0;
+      break;
+  }
+  return Math.ceil(number / tensHundredsThousands) * tensHundredsThousands;
+};
