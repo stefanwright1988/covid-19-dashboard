@@ -8,7 +8,12 @@ import {
   CartesianGrid,
   Area,
 } from "recharts";
-import { abbreviateNumber, difference } from "../../../helpers/number";
+import {
+  abbreviateNumber,
+  difference,
+  roundDown,
+  roundUp,
+} from "../../../helpers/number";
 import Loader from "../../Loader/Loader";
 import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
@@ -218,19 +223,27 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
           <StyledHistoryCardTopLine type={toSentenceCase(activeCaseType)}>
             <ResponsiveContainer>
               <AreaChart data={globalCovidHistory[activeCaseType]}>
-                <XAxis dataKey="date" stroke="#d5d5d9" />
+                <XAxis
+                  dataKey="date"
+                  stroke="#d5d5d9"
+                  tickCount={daysToUse.value}
+                  interval="preserveStartEnd"
+                />
                 <YAxis
                   type="number"
                   domain={[
-                    _.ceil(
-                      globalCovidHistory[activeCaseType][0].reports + 5,
-                      1
+                    roundDown(globalCovidHistory[activeCaseType][0].reports),
+                    roundUp(
+                      globalCovidHistory[activeCaseType][
+                        globalCovidHistory[activeCaseType].length - 1
+                      ].reports
                     ),
-                    _.floor(globalCovidHistory[activeCaseType][0].reports, -5),
                   ]}
                   tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
                   }}
+                  tickCount={20}
+                  interval="preserveStartEnd"
                   stroke="#d5d5d9"
                 />
                 <CartesianGrid />
