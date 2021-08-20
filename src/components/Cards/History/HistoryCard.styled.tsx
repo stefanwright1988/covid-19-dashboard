@@ -214,6 +214,15 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
     updateNextCaseType,
     updatePreviousCaseType,
   } = useContext(AppContext);
+  const chartYMin = roundDown(
+    globalCovidHistory[activeCaseType][0]?.reports || 0
+  );
+  const chartYMax = roundUp(
+    globalCovidHistory[activeCaseType][
+      globalCovidHistory[activeCaseType].length - 1
+    ]?.reports || 0
+  );
+  const ticksAt = (chartYMax - chartYMin) / 5;
   return (
     <StyledHistoryCardContainer>
       {loading || props.isBlank ? (
@@ -231,14 +240,7 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 />
                 <YAxis
                   type="number"
-                  domain={[
-                    roundDown(globalCovidHistory[activeCaseType][0].reports),
-                    roundUp(
-                      globalCovidHistory[activeCaseType][
-                        globalCovidHistory[activeCaseType].length - 1
-                      ].reports
-                    ),
-                  ]}
+                  domain={[chartYMin, chartYMax]}
                   tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
                   }}

@@ -60,14 +60,29 @@ describe("Rounding up numbers", () => {
       expect(NumberFile.roundUp(12345)).toBe(13000);
     });
   });
-  describe("It should return 124000", () => {
+  describe("It should return 130000", () => {
     test("when given 123456", () => {
-      expect(NumberFile.roundUp(123456)).toBe(124000);
+      expect(NumberFile.roundUp(123456)).toBe(130000);
     });
   });
-  describe("It should return 1235000", () => {
+  describe("It should return 1240000", () => {
     test("when given 1234567", () => {
-      expect(NumberFile.roundUp(1234567)).toBe(1235000);
+      expect(NumberFile.roundUp(1234567)).toBe(1240000);
+    });
+  });
+  describe("It should return 12400000", () => {
+    test("when given 12345678", () => {
+      expect(NumberFile.roundUp(12345678)).toBe(12400000);
+    });
+  });
+  describe("It should return 123500000", () => {
+    test("when given 123456789", () => {
+      expect(NumberFile.roundUp(123456789)).toBe(123500000);
+    });
+  });
+  describe("It should return 1240000", () => {
+    test("when given 1234567890", () => {
+      expect(NumberFile.roundUp(1234567890)).toBe(1235000000);
     });
   });
 });

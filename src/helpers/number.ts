@@ -45,11 +45,11 @@ export const roundDown = (number: number) => {
       break;
     case 6:
     case 7:
-      tensHundredsThousands = 1e3;
+      tensHundredsThousands = 1e4;
       break;
     case 8:
     case 9:
-      tensHundredsThousands = 1e3;
+      tensHundredsThousands = 1e5;
       break;
     default:
       tensHundredsThousands = 0;
@@ -74,11 +74,14 @@ export const roundUp = (number: number) => {
       break;
     case 6:
     case 7:
-      tensHundredsThousands = 1e3;
+      tensHundredsThousands = 1e4;
       break;
     case 8:
     case 9:
-      tensHundredsThousands = 1e3;
+      tensHundredsThousands = 1e5;
+      break;
+    case 10:
+      tensHundredsThousands = 1e6;
       break;
     default:
       tensHundredsThousands = 0;
