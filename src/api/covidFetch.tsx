@@ -92,7 +92,12 @@ function transposeWorldwideResponse(data: any) {
     var children = Object.entries(test);
     for (const j of children) {
       var newObj: CovidHistoryCase = { date: "", reports: 0 };
-      newObj.date = j[0];
+      var dateSplit = j[0].split("/");
+      var day = Number(dateSplit[1]);
+      var month = Number(dateSplit[0]) - 1;
+      var year = Number(dateSplit[2]) + 2000;
+      var date = new Date(year, month, day).getTime().toString();
+      newObj.date = date;
       newObj.reports = j[1];
       newData[i as keyof CovidHistory].push(newObj);
     }

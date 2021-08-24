@@ -222,7 +222,13 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
       globalCovidHistory[activeCaseType].length - 1
     ]?.reports || 0
   );
-  const ticksAt = (chartYMax - chartYMin) / 5;
+  const chartXMin = Number(globalCovidHistory[activeCaseType][0]?.date) || 0;
+  const chartXMax =
+    Number(
+      globalCovidHistory[activeCaseType][
+        globalCovidHistory[activeCaseType].length - 1
+      ]?.date
+    ) || 0;
   return (
     <StyledHistoryCardContainer>
       {loading || props.isBlank ? (
@@ -235,8 +241,20 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 <XAxis
                   dataKey="date"
                   stroke="#d5d5d9"
+                  type="number"
                   tickCount={daysToUse.value}
-                  interval="preserveStartEnd"
+                  domain={[chartXMin, chartXMax]}
+                  interval={0}
+                  ticks={_.range(
+                    chartXMin,
+                    chartXMax,
+                    (chartXMax - chartXMin) / 4
+                  ).concat(chartXMax)}
+                  tickFormatter={(tick: string) => {
+                    return new Date(Number(tick)).toLocaleDateString(
+                      navigator.language
+                    );
+                  }}
                 />
                 <YAxis
                   type="number"
@@ -244,9 +262,13 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                   tickFormatter={(tick: number) => {
                     return abbreviateNumber(tick, 2);
                   }}
-                  tickCount={20}
-                  interval="preserveStartEnd"
+                  tickCount={5}
                   stroke="#d5d5d9"
+                  ticks={_.range(
+                    chartYMin,
+                    chartYMax,
+                    (chartYMax - chartYMin) / 4
+                  ).concat(chartYMax)}
                 />
                 <CartesianGrid />
                 <Area type="monotone" dataKey="reports" stroke="#d5d5d9" />
