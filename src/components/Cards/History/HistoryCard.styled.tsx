@@ -213,6 +213,8 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
     updateActiveCaseType,
     updateNextCaseType,
     updatePreviousCaseType,
+    globalCovidHistoryError,
+    globalCovidHistoryErrorText,
   } = useContext(AppContext);
   const chartYMin = roundDown(
     globalCovidHistory[activeCaseType][0]?.reports || 0
@@ -231,7 +233,9 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
     ) || 0;
   return (
     <StyledHistoryCardContainer>
-      {loading || props.isBlank ? (
+      {globalCovidHistoryError ? (
+        <h1>{globalCovidHistoryErrorText}</h1>
+      ) : loading || props.isBlank ? (
         <Loader />
       ) : (
         <StyledHistoryCardInner>
