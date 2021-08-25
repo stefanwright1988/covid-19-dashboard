@@ -25,12 +25,12 @@ describe("Rounding down numbers", () => {
   });
   describe("It should return 123000", () => {
     test("when given 123456", () => {
-      expect(NumberFile.roundDown(123456)).toBe(123000);
+      expect(NumberFile.roundDown(123456)).toBe(120000);
     });
   });
   describe("It should return 1234000", () => {
     test("when given 1234567", () => {
-      expect(NumberFile.roundDown(1234567)).toBe(1234000);
+      expect(NumberFile.roundDown(1234567)).toBe(1230000);
     });
   });
 });
@@ -80,7 +80,7 @@ describe("Rounding up numbers", () => {
       expect(NumberFile.roundUp(123456789)).toBe(123500000);
     });
   });
-  describe("It should return 1240000", () => {
+  describe("It should return 1235000000", () => {
     test("when given 1234567890", () => {
       expect(NumberFile.roundUp(1234567890)).toBe(1235000000);
     });
