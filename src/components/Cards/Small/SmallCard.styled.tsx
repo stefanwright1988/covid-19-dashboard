@@ -7,15 +7,15 @@ import { HeadSideMask } from "@styled-icons/fa-solid";
 import Loader from "../../Loader/Loader";
 import { toSentenceCase } from "../../../helpers/strings";
 
-const StyledSmallCardContainer = styled.div`    
+const StyledSmallCardContainer = styled.div`
   margin: 0;
   box-sizing: border-box;
   flex-grow: 0;
   max-width: 50%;
   flex-basis: 50%;
   padding: 0 15px !important;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledSmallCardInner = styled.div`
@@ -76,16 +76,13 @@ const handleStyledSmallCardIconContainerBackgroundColor = (type?: string) => {
   }
 };
 const StyledSmallCardIconContainer = styled.div<StyledSmallCardIconContainerProps>`
-  
   font-weight: 300;
   line-height: 1.5em;
   font-size: 0.875rem;
   word-wrap: break-word;
   color: #d5d5d9;
   text-align: right;
-  
-  
-  
+
   background: linear-gradient(
     60deg,
     ${({ type }) => handleStyledSmallCardIconContainerBackgroundColor(type)}
@@ -101,17 +98,17 @@ const StyledSmallCardIconContainer = styled.div<StyledSmallCardIconContainerProp
 
 const StyledSmallCardIconSpan = styled.span`
   color: #d5d5d9;
-  
-  
+
   font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
   text-transform: none;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  
+
   flex-shrink: 0;
   user-select: none;
   width: 56px;
@@ -119,19 +116,15 @@ const StyledSmallCardIconSpan = styled.span`
   overflow: 90%;
   font-size: 36px;
   text-align: center;
-  line-height: 56px;
   margin-bottom: 1px;
 `;
 
 const StyledSmallCardTopLineTitle = styled.p`
-  
   font-weight: 300;
   line-height: 1.5em;
   word-wrap: break-word;
   text-align: right;
-  
-  
-  
+
   margin: 0;
   font-size: 14px;
   margin-top: 0;
@@ -141,24 +134,19 @@ const StyledSmallCardTopLineTitle = styled.p`
 const StyledSmallCardTopLineSubTitle = styled.h3`
   word-wrap: break-word;
   text-align: right;
-  
-  
-  
+
   font-size: 1.825em;
   line-height: 1.5em;
   min-height: auto;
-  
+
   font-weight: 300;
   text-decoration: none;
   margin: 0 !important;
 `;
 const StyledSmallCardBottomLineContent = styled.div`
-  
   font-weight: 300;
   word-wrap: break-word;
-  
-  
-  
+
   display: inline-flex;
   font-size: 12px;
   line-height: 18px;

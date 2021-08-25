@@ -4,7 +4,7 @@ const SmallStyledCardsContainer = styled.div`
   display: flex;
   flex: 1;
   flex-wrap: wrap;
-  align-content: space-around;
+  align-content: flex-start;
   max-width: 50%;
   height: 100%;
   margin: 10px 12.5px !important;

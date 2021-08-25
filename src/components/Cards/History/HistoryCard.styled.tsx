@@ -20,6 +20,8 @@ import { useContext } from "react";
 import { toSentenceCase } from "../../../helpers/strings";
 import "./HistoryCardStyled.css";
 import _ from "lodash";
+import { RightArrowCircle } from "@styled-icons/boxicons-regular";
+import { LeftArrowCircle } from "@styled-icons/boxicons-regular";
 interface StyledHistoryCardTopLineProps {
   type?: string;
 }
@@ -87,6 +89,7 @@ const StyledHistoryCardMidLine = styled.div`
   display: flex;
   justify-content: space-around;
   justify-items: center;
+  align-items: center;
   grid-auto-columns: 33%;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -101,7 +104,6 @@ const StyledHistoryCardMidLineTitle = styled.p`
   margin: 0;
   font-size: 14px;
   margin-top: 0;
-  padding-top: 10px;
   margin-bottom: 0;
 `;
 const StyledHistoryCardMidLineSubTitle = styled.h3`
@@ -141,6 +143,29 @@ const StyledHistoryCardBottomLineContent = styled.div`
     margin-left: 3px;
     margin-right: 3px;
   }
+`;
+
+const StyledHistoryCardArrow = styled.span`
+  color: #d5d5d9;
+
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+
+  flex-shrink: 0;
+  user-select: none;
+  width: 56px;
+  height: 56px;
+  overflow: 90%;
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 1px;
 `;
 
 const changeOrder = (
@@ -280,7 +305,7 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
             </ResponsiveContainer>
           </StyledHistoryCardTopLine>
           <StyledHistoryCardMidLine>
-            <button
+            <StyledHistoryCardArrow
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 changeOrder(
                   "reverse",
@@ -290,11 +315,16 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 );
               }}
             >
-              Back
-            </button>
+              <LeftArrowCircle />
+            </StyledHistoryCardArrow>
             <div
               className="all-slides"
-              style={{ display: "flex", margin: "0 auto" }}
+              style={{
+                display: "flex",
+                margin: "0 auto",
+                width: "100%",
+                justifyContent: "center",
+              }}
             >
               <div
                 className="single-slide"
@@ -304,6 +334,7 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
+                  width: "25%",
                 }}
               >
                 <StyledHistoryCardMidLineTitle>
@@ -329,6 +360,7 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
+                  width: "25%",
                 }}
               >
                 <StyledHistoryCardMidLineTitle>
@@ -354,6 +386,7 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
+                  width: "25%",
                 }}
               >
                 <StyledHistoryCardMidLineTitle>
@@ -372,7 +405,7 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 </StyledHistoryCardMidLineSubTitle>
               </div>
             </div>
-            <button
+            <StyledHistoryCardArrow
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 changeOrder(
                   "forward",
@@ -382,8 +415,8 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 );
               }}
             >
-              Forward
-            </button>
+              <RightArrowCircle />
+            </StyledHistoryCardArrow>
           </StyledHistoryCardMidLine>
           <StyledHistoryCardBottomLine>
             <StyledHistoryCardBottomLineContent>
