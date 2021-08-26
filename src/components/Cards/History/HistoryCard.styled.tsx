@@ -395,10 +395,10 @@ const StyledHistoryCard = (props: StyledHistoryCardProps) => {
                 <StyledHistoryCardMidLineSubTitle>
                   {abbreviateNumber(
                     difference(
-                      globalCovidHistory["recovered"][0].reports ?? 0,
                       globalCovidHistory["recovered"][
                         globalCovidHistory["recovered"].length - 1
-                      ].reports
+                      ].reports,
+                      globalCovidHistory["recovered"][0].reports ?? 0
                     ),
                     3
                   )}

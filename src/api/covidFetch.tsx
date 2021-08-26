@@ -88,8 +88,8 @@ function transposeWorldwideResponse(data: any) {
   };
   for (var i of propertyNames) {
     newData[i as keyof CovidHistory] = [];
-    const test: CovidHistoryCase = data[i];
-    var children = Object.entries(test);
+    const historyItem: CovidHistoryCase = data[i];
+    var children = Object.entries(historyItem);
     for (const j of children) {
       var newObj: CovidHistoryCase = { date: "", reports: 0 };
       var dateSplit = j[0].split("/");
@@ -114,8 +114,8 @@ function transposeCountryResponse(data: any) {
   };
   for (var i of propertyNames) {
     newData[i as keyof CovidHistory] = [];
-    const test: CovidHistoryCase = data[i];
-    var children = Object.entries(test);
+    const historyItem: CovidHistoryCase = data[i];
+    var children = Object.entries(historyItem);
     for (const j of children) {
       var newObj: CovidHistoryCase = { date: "", reports: 0 };
       var dateSplit = j[0].split("/");
