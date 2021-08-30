@@ -20,25 +20,7 @@ export const Header = () => {
   } = useContext(AppContext);
 
   useEffect(() => {
-    const getAllCountries = async () => {
-      const response: CovidInfo[] = await getCountries();
-
-      const countryList = response.map((country: CovidInfo) => ({
-        label: country.country,
-        value: country.countryInfo.iso3,
-      }));
-
-      countryList.unshift({ label: "Worldwide", value: "worldwide" });
-      updateCountries(countryList);
-      const orderedTableData: CovidInfo[] = orderTableDataBy(
-        response,
-        "cases",
-        "desc"
-      );
-      updateTableData(orderedTableData);
-      updateMapCountries(response);
-    };
-    getAllCountries();
+    getCountries(updateCountries, updateTableData, updateMapCountries);
   }, []);
 
   const changeDays = (e: any) => {

@@ -1,5 +1,11 @@
-import { CovidHistory, CovidHistoryCase } from "../interfaces/covidInterface";
+import {
+  Country,
+  CovidHistory,
+  CovidHistoryCase,
+  CovidInfo,
+} from "../interfaces/covidInterface";
 import axios from "axios";
+import { orderTableDataBy } from "../helpers/orderCovidData";
 
 const HOST_VERSION = "v3";
 const HOST_NAME = `https://disease.sh/`;
@@ -8,23 +14,39 @@ const ALL_URL = `${BASE_URL}/all`;
 const HISTORICAL_URL = `${BASE_URL}/historical`;
 const COUNTRIES_URL = `${BASE_URL}/countries`;
 
-const getCountries = async () => {
-  try {
-    const response = await fetch(`${COUNTRIES_URL}`);
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
+const getCountries = async (
+  updateCountries: { (value: Country[]): void; (arg0: any): void },
+  updateTableData: { (value: CovidInfo[]): void; (arg0: CovidInfo[]): void },
+  updateMapCountries: { (value: CovidInfo[]): void; (arg0: any): void }
+) => {
+  axios.get(`${COUNTRIES_URL}`).then(
+    (res) => {
+      const countryList = res.data.map((country: CovidInfo) => ({
+        label: country.country,
+        value: country.countryInfo.iso3,
+      }));
+
+      countryList.unshift({ label: "Worldwide", value: "worldwide" });
+      updateCountries(countryList);
+      const orderedTableData: CovidInfo[] = orderTableDataBy(
+        res.data,
+        "cases",
+        "desc"
+      );
+      updateTableData(orderedTableData);
+      updateMapCountries(res.data);
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
 };
 
 const getCovidInfo = async (
   countryCode: string,
   setErrorStatus: any,
   setErrorText: any,
-  setCovidHistory: any,
-  setLoading: any
+  setCovidHistory: any
 ) => {
   setErrorStatus(false);
   setErrorText("");
@@ -35,13 +57,11 @@ const getCovidInfo = async (
   axios.get(`${getURL}`).then(
     (res) => {
       setCovidHistory(res.data);
-      //setLoading(false);
     },
     (error) => {
       setErrorStatus(true);
       setErrorText(error.response.data.message);
       console.log(error.response.data.message);
-      //setLoading(false);
     }
   );
 };
@@ -51,8 +71,7 @@ const getCovidHistory = async (
   days: number,
   setErrorStatus: any,
   setErrorText: any,
-  setCovidHistory: any,
-  setLoading: any
+  setCovidHistory: any
 ) => {
   setErrorStatus(false);
   setErrorText("");
@@ -67,13 +86,11 @@ const getCovidHistory = async (
           ? transposeWorldwideResponse(res.data)
           : transposeCountryResponse(res.data.timeline);
       setCovidHistory(data);
-      //setLoading(false);
     },
     (error) => {
       setErrorStatus(true);
       setErrorText(error.response.data.message);
       console.log(error.response.data.message);
-      //setLoading(false);
     }
   );
 };

@@ -30,15 +30,13 @@ const Content = () => {
       daysToUse.value,
       updateGlobalCovidHistoryError,
       updateGlobalCovidHistoryErrorText,
-      updateGlobalCovidHistory,
-      updateLoading
+      updateGlobalCovidHistory
     );
     getCovidInfo(
       country.value,
       updateCovidInfoError,
       updateCovidInfoErrorText,
-      updateCovidInfo,
-      updateLoading
+      updateCovidInfo
     );
     updateLoading(false);
   }, [country, daysToUse]);
