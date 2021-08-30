@@ -27,8 +27,10 @@ type IContext = {
   updateGlobalCovidHistoryError: (value: boolean) => void;
   globalCovidHistoryErrorText: string;
   updateGlobalCovidHistoryErrorText: (value: string) => void;
-  mapData: {};
-  updateMapData: (value: { lat: number; lng: number; zoom: number }) => void;
+  mapCenter: [number, number];
+  updateMapCenter: (value: [number, number]) => void;
+  mapZoom: number;
+  updateMapZoom: (value: number) => void;
   caseTypes: ["cases", "active", "deaths", "recovered"];
   activeCaseType: "cases" | "active" | "deaths" | "recovered";
   updateActiveCaseType: (value: "cases" | "deaths" | "recovered") => void;
@@ -57,14 +59,16 @@ export const AppContext = createContext<IContext>({
   updateTableData: (value: CovidInfo[]) => {},
   mapCountries: [],
   updateMapCountries: (value: CovidInfo[]) => {},
+  mapCenter: [40, 34],
+  updateMapCenter: (value: [number, number]) => {},
+  mapZoom: 0,
+  updateMapZoom: (value: number) => {},
   globalCovidHistory: { active: [], cases: [], recovered: [], deaths: [] },
   updateGlobalCovidHistory: (value: CovidHistory) => {},
   globalCovidHistoryError: false,
   updateGlobalCovidHistoryError: (value: boolean) => {},
   globalCovidHistoryErrorText: "",
   updateGlobalCovidHistoryErrorText: (value: string) => {},
-  mapData: {},
-  updateMapData: (value: { lat: number; lng: number; zoom: number }) => {},
   caseTypes: ["cases", "active", "deaths", "recovered"],
   activeCaseType: "cases",
   updateActiveCaseType: (value: "cases" | "deaths" | "recovered") => {},
@@ -135,13 +139,13 @@ const AppContextProvider: React.FC = ({ children }) => {
   const updateMapCountries = (value: CovidInfo[]) => {
     setMapCountries(value);
   };
-  const [mapData, setMapData] = useState({
-    lat: 34.80746,
-    lng: -40.4796,
-    zoom: 3,
-  });
-  const updateMapData = (value: { lat: number; lng: number; zoom: number }) => {
-    setMapData(value);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([40, 34]);
+  const updateMapCenter = (value: [number, number]) => {
+    setMapCenter(value);
+  };
+  const [mapZoom, setMapZoom] = useState(1);
+  const updateMapZoom = (value: number) => {
+    setMapZoom(value);
   };
   const [caseTypes] = useState<["cases", "active", "deaths", "recovered"]>([
     "cases",
@@ -194,8 +198,10 @@ const AppContextProvider: React.FC = ({ children }) => {
         updateTableData,
         mapCountries,
         updateMapCountries,
-        mapData,
-        updateMapData,
+        mapCenter,
+        updateMapCenter,
+        mapZoom,
+        updateMapZoom,
         caseTypes,
         activeCaseType,
         updateActiveCaseType,

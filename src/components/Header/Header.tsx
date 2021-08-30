@@ -17,6 +17,8 @@ export const Header = () => {
     updateDaysToUse,
     updateTableData,
     updateMapCountries,
+    updateMapZoom,
+    updateMapCenter,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -29,6 +31,8 @@ export const Header = () => {
 
   const changeCountry = (e: any) => {
     updateCountry({ value: e.value, label: e.label });
+    updateMapZoom(3);
+    updateMapCenter([40, 34]);
   };
 
   const daysForSelection = [
