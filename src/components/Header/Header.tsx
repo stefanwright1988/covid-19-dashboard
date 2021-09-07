@@ -11,6 +11,7 @@ export const Header = () => {
   const {
     countries,
     updateCountries,
+    mapCountries,
     country,
     updateCountry,
     daysToUse,
@@ -32,7 +33,10 @@ export const Header = () => {
   const changeCountry = (e: any) => {
     updateCountry({ value: e.value, label: e.label });
     updateMapZoom(3);
-    updateMapCenter([40, 34]);
+    const countryPos = mapCountries.find(
+      (obj) => obj["country"] === e.label
+    )?.countryInfo;
+    updateMapCenter([countryPos?.long || 0, countryPos?.lat || 0]);
   };
 
   const daysForSelection = [

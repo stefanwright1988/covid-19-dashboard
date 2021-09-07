@@ -8,6 +8,7 @@ import SmallCardsContainer from "../Cards/Small/SmallCardsContainer";
 import HistoryCardsContainer from "../Cards/History/HistoryCardsContainer";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import MapContainer from "../Map/MapContainer";
 
 const Content = () => {
   const {
@@ -48,7 +49,7 @@ const Content = () => {
         <HistoryCardsContainer />
       </div>
       <CountriesTable tableData={tableData} />
-      <SimpleMap geoData={(props: any) => props.geoData} />
+      <MapContainer />
     </StyledContent>
   );
 };
