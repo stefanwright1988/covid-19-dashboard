@@ -14,7 +14,8 @@ const StyledHeader = styled.header`
   justify-content: space-evenly;
   padding: 10px 0;
   z-index: 1029;
-  position: absolute;
+  position: fixed;
+  top: 0;
   box-shadow: none;
   min-height: 50px;
   transition: all 150ms ease 0s;
