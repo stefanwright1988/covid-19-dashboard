@@ -5,4 +5,4 @@ This dashboard system was built during the COVID lockdowns. It allows quick over
 The application is hosted on https://covid.stefan-wright.com, it is hosted on Google Firebase hosting
 
 # Stack used 
-The application was built using React and Typescript
+The application was built using React and Typescript. I used Styled Components to handle the styling of my elements, and this was my first time implementing the React Context API into a solution.
